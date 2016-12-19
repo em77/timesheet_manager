@@ -15,3 +15,23 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "rails_bootstrap_forms";
+@import "user_sessions";
+@import "pages";
+
+body {
+  padding-top: 55px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 20px;
+  overflow-x: hidden;
+}
+
+@media (max-width: 979px) {
+  body {
+    padding-top: 85px;
+  }
+}
+
+.center {
+  text-align: center;
+}
