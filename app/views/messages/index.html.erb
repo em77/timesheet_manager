@@ -1,0 +1,18 @@
+<h2>Received Messages</h2>
+
+<% rcvd_messages.each do |message| %>
+  <%= link_to "#{message.subject} - " +
+    message.created_at.strftime("%m/%d/%Y, %l:%M %p"),
+    message_path(message) %>
+  <% if message.unread? %>
+    <span>NEW</span>
+  <% end %>
+<% end %>
+
+<h2>Sent Messages</h2>
+
+<% sent_messages.each do |message| %>
+  <%= link_to "#{message.subject} - " +
+    message.created_at.strftime("%m/%d/%Y, %l:%M %p"),
+    message_path(message) %>
+<% end %>

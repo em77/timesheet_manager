@@ -39,6 +39,9 @@ gem 'bcrypt', '~> 3.1.7'
 # Authentication
 gem 'sorcery'
 
+# Authorization
+gem 'pundit'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

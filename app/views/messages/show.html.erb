@@ -1,0 +1,17 @@
+<% message.read! %>
+
+<h2>
+  <%= message.subject %>
+</h2>
+
+<h3>
+  From: <%= full_name(message.sender_user_id) %>
+</h3>
+
+<h3>
+  To: <%= full_name(message.recipient_user_id) %>
+</h3>
+
+<h5>
+  <%= message.content %>
+</h5>
