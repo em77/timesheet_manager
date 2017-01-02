@@ -3,7 +3,13 @@
 <div class="form_wrapper" id="new-message-panel">
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h4>Send new message to employee</h4>
+      <h4>
+        <% if policy(message).is_an_admin? %>
+          Send new message to employee
+        <% else %>
+          Send new message to the manager
+        <% end %>
+      </h4>
     </div>
     <div class="panel-body">
       <%= render "form" %>

@@ -5,8 +5,8 @@ class MessagesController < ApplicationController
 
   autocomplete :user, :full_name, full: true
 
-  attr_accessor :message, :sent_messages, :rcvd_messages
-  helper_method :message, :sent_messages, :rcvd_messages
+  attr_accessor :message, :sent_messages, :rcvd_messages, :companies_array
+  helper_method :message, :sent_messages, :rcvd_messages, :companies_array
 
   def index
     @sent_messages = Message.where("sender_user_id = ?", current_user.id).order(
@@ -17,6 +17,9 @@ class MessagesController < ApplicationController
 
   def new
     @message = Message.new
+    @companies_array = current_user.profileable.companies.all.collect {|c|
+      [c.title, AdminProfile.find(c.admin_profile_id).user.id]
+      } unless policy(message).is_an_admin?
   end
 
   def show

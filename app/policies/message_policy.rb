@@ -1,4 +1,4 @@
-class MessagePolicy
+class MessagePolicy < ApplicationPolicy
   attr_reader :current_user, :model
 
   def initialize(current_user, model)
@@ -24,9 +24,5 @@ class MessagePolicy
   def update?
     (@current_user.id == @message.sender_user_id) &&
       (@current_user.profileable_type == "AdminProfile")
-  end
-
-  def is_an_admin?
-    @current_user.profileable_type == "AdminProfile"
   end
 end

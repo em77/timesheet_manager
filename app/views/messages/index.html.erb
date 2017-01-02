@@ -1,10 +1,13 @@
 <% provide(:title, "Messages") %>
 
 <% if policy(Message).is_an_admin? %>
-  <h2>
-    <%= link_to "New Message", new_message_path %>
-  </h2>
+  <% message_link_text = "Send Message to Employee" %>
+<% else %>
+  <% message_link_text = "Send Message to the Manager" %>
 <% end %>
+<h2>
+  <%= link_to message_link_text, new_message_path %>
+</h2>
 
 <h2>Received Messages</h2>
 
