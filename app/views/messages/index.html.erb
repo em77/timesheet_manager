@@ -1,18 +1,26 @@
+<% provide(:title, "Messages") %>
+
+<% if policy(Message).is_an_admin? %>
+  <h2>
+    <%= link_to "New Message", new_message_path %>
+  </h2>
+<% end %>
+
 <h2>Received Messages</h2>
 
 <% rcvd_messages.each do |message| %>
-  <%= link_to "#{message.subject} - " +
-    message.created_at.strftime("%m/%d/%Y, %l:%M %p"),
-    message_path(message) %>
+  <%= link_to message.subject, message_path(message) %>
+  <span><%= " - #{message.created_at.strftime("%m/%d/%Y, %l:%M %p")}" %></span>
   <% if message.unread? %>
     <span>NEW</span>
   <% end %>
+  <br>
 <% end %>
 
 <h2>Sent Messages</h2>
 
 <% sent_messages.each do |message| %>
-  <%= link_to "#{message.subject} - " +
-    message.created_at.strftime("%m/%d/%Y, %l:%M %p"),
-    message_path(message) %>
+  <%= link_to message.subject, message_path(message) %>
+  <span><%= " - #{message.created_at.strftime("%m/%d/%Y, %l:%M %p")}" %></span>
+  <br>
 <% end %>

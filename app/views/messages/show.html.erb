@@ -1,15 +1,17 @@
-<% message.read! %>
+<% provide(:title, "View Message") %>
+
+<% message.read! if current_user.id == message.recipient_user_id %>
 
 <h2>
   <%= message.subject %>
 </h2>
 
 <h3>
-  From: <%= full_name(message.sender_user_id) %>
+  From: <%= User.find(message.sender_user_id).full_name %>
 </h3>
 
 <h3>
-  To: <%= full_name(message.recipient_user_id) %>
+  To: <%= User.find(message.recipient_user_id).full_name %>
 </h3>
 
 <h5>

@@ -10,13 +10,14 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
-
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "rails_bootstrap_forms";
+@import "jquery-ui/autocomplete";
 @import "user_sessions";
 @import "pages";
+@import "messages";
 
 body {
   padding-top: 55px;
@@ -34,4 +35,11 @@ body {
 
 .center {
   text-align: center;
+}
+
+.instruction-text {
+  display: inline;
+  color: #A3A3A3;
+  font-style: italic;
+  padding-left: 0.25em;
 }

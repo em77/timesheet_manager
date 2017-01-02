@@ -25,4 +25,8 @@ class MessagePolicy
     (@current_user.id == @message.sender_user_id) &&
       (@current_user.profileable_type == "AdminProfile")
   end
+
+  def is_an_admin?
+    @current_user.profileable_type == "AdminProfile"
+  end
 end

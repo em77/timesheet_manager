@@ -1,0 +1,39 @@
+<%= bootstrap_form_for(message) do |f| %>
+
+  <% if message.errors.any? %>
+    <div id="error_explanation">
+      <p>
+        <%= pluralize(message.errors.count, "error") %> prohibited this message
+        from being sent:
+      </p>
+
+      <ul>
+      <% message.errors.full_messages.each do |error_message| %>
+        <li><%= error_message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <%= f.label :user_full_name, "Employee Name",
+    class: "control-label" %>
+  <%= f.hidden_field :recipient_user_id, id: "the_user_id" %>
+
+  <%= f.autocomplete_field :user, autocomplete_user_full_name_messages_path,
+    "data-auto-focus": true, id_element: "#the_user_id",
+    value: "", class: "form-control message-fields", required: true %>
+
+  <div class="instruction-text" id="message-autocomplete-instruction">
+    Select the employee's name as it appears while typing
+  </div>
+
+  <br><br>
+
+  <%= f.text_field :subject, class: "message-fields" %>
+
+  <%= f.text_area :content, label: "Message", class: "message-fields",
+    required: true %>
+
+  <%= f.submit "Send Message", class: "btn btn-default btn-primary",
+      id: "submit_message" %>
+<% end %>
