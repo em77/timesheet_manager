@@ -18,17 +18,26 @@
   <% if policy(message).is_an_admin? %>
     <%= f.label :user_full_name, "Employee Name",
       class: "control-label" %>
-    <%= f.hidden_field :recipient_user_id, id: "the_user_id" %>
+    <%= f.hidden_field :recipient_user_id, id: "the_user_id",
+      value: params[:recipient_user_id] %>
+
+    <% if params[:recipient_user_id] %>
+      <% autocomplete_value = User.find(params[:recipient_user_id]).full_name %>
+    <% else %>
+      <% autocomplete_value = "" %>
+    <% end %>
 
     <%= f.autocomplete_field :user, autocomplete_user_full_name_messages_path,
       "data-auto-focus": true, id_element: "#the_user_id",
-      value: "", class: "form-control message-fields", required: true %>
+      value: autocomplete_value, class: "form-control message-fields",
+      required: true %>
 
     <div class="instruction-text" id="message-autocomplete-instruction">
       Select the employee's name as it appears while typing
     </div>
   <% else %>
-    <%= f.select :recipient_user_id, options_for_select(companies_array) %>
+    <%= f.select :recipient_user_id, options_for_select(companies_array,
+      params[:recipient_user_id]) %>
 
     <div class="instruction-text">
       Select the name of the company whose manager you want to contact.

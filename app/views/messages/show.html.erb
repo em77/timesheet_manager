@@ -17,3 +17,10 @@
 <h5>
   <%= message.content %>
 </h5>
+
+<% if current_user.id == message.recipient_user_id %>
+  <h2>
+    <%= link_to "Reply",
+      new_message_path(recipient_user_id: message.sender_user_id) %>
+  </h2>
+<% end %>
