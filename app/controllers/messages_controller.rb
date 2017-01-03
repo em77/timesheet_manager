@@ -2,6 +2,7 @@ class MessagesController < ApplicationController
   before_action :require_login
   before_action :set_message, only: [:show, :edit, :update, :destroy]
   before_action :set_referer, only: [:destroy, :edit, :new, :show]
+  after_action :verify_authorized
 
   autocomplete :user, :full_name, full: true
 
@@ -13,6 +14,7 @@ class MessagesController < ApplicationController
       "updated_at asc")
     @rcvd_messages = Message.where("recipient_user_id = ?", current_user.id)
       .order("updated_at asc")
+    authorize sent_messages
   end
 
   def new
@@ -20,6 +22,7 @@ class MessagesController < ApplicationController
     @companies_array = current_user.profileable.companies.all.collect {|c|
       [c.title, AdminProfile.find(c.admin_profile_id).user.id]
       } unless policy(message).is_an_admin?
+    authorize message
   end
 
   def show
@@ -30,6 +33,7 @@ class MessagesController < ApplicationController
 
   def create
     @message = Message.new(message_params)
+    authorize message
     @message.sender_user_id = current_user.id
 
     if @message.valid?
