@@ -6,6 +6,14 @@ class MessagePolicy < ApplicationPolicy
     @message = model
   end
 
+  def new?
+    create?
+  end
+
+  def create?
+    true
+  end
+
   def show?
     [@message.sender_user_id, @message.recipient_user_id].include?(
       @current_user.id)

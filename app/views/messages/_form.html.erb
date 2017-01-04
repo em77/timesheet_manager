@@ -30,14 +30,14 @@
     <%= f.autocomplete_field :user, autocomplete_user_full_name_messages_path,
       "data-auto-focus": true, id_element: "#the_user_id",
       value: autocomplete_value, class: "form-control message-fields",
-      required: true %>
+      id: "employee-name-field", required: true %>
 
     <div class="instruction-text" id="message-autocomplete-instruction">
       Select the employee's name as it appears while typing
     </div>
   <% else %>
     <%= f.select :recipient_user_id, options_for_select(companies_array,
-      params[:recipient_user_id]) %>
+      params[:recipient_user_id]), label: "Company name" %>
 
     <div class="instruction-text">
       Select the name of the company whose manager you want to contact.

@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :user do
     trait :admin do
-      email "admin@example.com"
+      email "admin@test.com"
       first_name "John"
       last_name "Admin"
       username "admin"
@@ -10,7 +10,7 @@ FactoryGirl.define do
     end
 
     trait :employee do
-      email "employee@example.com"
+      email "employee@test.com"
       first_name "Joe"
       last_name "Employee"
       username "employee"

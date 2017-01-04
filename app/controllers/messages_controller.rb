@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
   before_action :require_login
   before_action :set_message, only: [:show, :edit, :update, :destroy]
   before_action :set_referer, only: [:destroy, :edit, :new, :show]
-  after_action :verify_authorized
+  after_action :verify_authorized, except: [:autocomplete_user_full_name]
 
   autocomplete :user, :full_name, full: true
 
@@ -38,11 +38,11 @@ class MessagesController < ApplicationController
 
     if @message.valid?
       @message.save
-      redirect_to(session.delete(:return_to),
+      redirect_to(session.delete(:return_to) || messages_path,
         notice: "Message sent successfully")
     else
       flash[:error] = @message.errors.full_messages.to_sentence
-      redirect_to(session.delete(:return_to))
+      redirect_to(session.delete(:return_to) || messages_path)
     end
   end
 

@@ -40,7 +40,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 
 # Authentication
-gem 'sorcery'
+gem 'sorcery', '~> 0.10.0'
 
 # Authorization
 gem 'pundit'
@@ -54,6 +54,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'capybara'
+  gem 'selenium-webdriver'
   gem 'database_cleaner'
   gem 'shoulda-matchers'
   # Fake data generator for testing
