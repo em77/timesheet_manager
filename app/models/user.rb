@@ -5,6 +5,7 @@ class User < ApplicationRecord
   authenticates_with_sorcery!
   validates_confirmation_of :password,
     message: "- Passwords must match", if: :password
+  validates_uniqueness_of :username
 
   def set_full_name
     self.update_column(:full_name, "#{self.first_name} #{self.last_name}")
