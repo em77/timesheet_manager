@@ -45,6 +45,9 @@ gem 'sorcery', '~> 0.10.0'
 # Authorization
 gem 'pundit'
 
+# For handling pay amounts
+gem 'money-rails'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

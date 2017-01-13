@@ -1,6 +1,6 @@
 class Timesheet < ApplicationRecord
   belongs_to :employee_profile
-  belongs_to :pay_period
+  belongs_to :job
   enum approved_status: [:unapproved, :approved]
   after_initialize :set_default_approved_status, if: :new_record?
 
