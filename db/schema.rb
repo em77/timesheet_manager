@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170113203301) do
+ActiveRecord::Schema.define(version: 20170116190924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20170113203301) do
     t.integer  "employee_profile_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.string   "title"
     t.index ["employee_profile_id"], name: "index_jobs_on_employee_profile_id", using: :btree
     t.index ["pay_period_id"], name: "index_jobs_on_pay_period_id", using: :btree
   end
