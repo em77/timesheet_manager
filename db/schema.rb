@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170116190924) do
+ActiveRecord::Schema.define(version: 20170118221131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 20170116190924) do
 
   create_table "companies", force: :cascade do |t|
     t.integer  "admin_profile_id"
-    t.integer  "pay_freq"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.string   "title"
@@ -44,13 +43,12 @@ ActiveRecord::Schema.define(version: 20170116190924) do
   create_table "jobs", force: :cascade do |t|
     t.integer  "pay_cents"
     t.integer  "pay_type"
-    t.integer  "pay_period_id"
     t.integer  "employee_profile_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.string   "title"
+    t.integer  "pay_freq"
     t.index ["employee_profile_id"], name: "index_jobs_on_employee_profile_id", using: :btree
-    t.index ["pay_period_id"], name: "index_jobs_on_pay_period_id", using: :btree
   end
 
   create_table "messages", force: :cascade do |t|
@@ -69,6 +67,8 @@ ActiveRecord::Schema.define(version: 20170116190924) do
     t.date     "pay_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "jobs_id"
+    t.index ["jobs_id"], name: "index_pay_periods_on_jobs_id", using: :btree
   end
 
   create_table "timesheets", force: :cascade do |t|
@@ -78,6 +78,8 @@ ActiveRecord::Schema.define(version: 20170116190924) do
     t.integer  "approving_admin_profile_id"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.integer  "pay_period_id"
+    t.index ["pay_period_id"], name: "index_timesheets_on_pay_period_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|

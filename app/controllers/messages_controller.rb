@@ -2,6 +2,7 @@ class MessagesController < ApplicationController
   before_action :require_login
   before_action :set_message, only: [:show, :edit, :update, :destroy]
   before_action :set_referer, only: [:destroy, :edit, :new, :show]
+  before_action :set_companies_array, only: [:new, :edit]
   after_action :verify_authorized, except: [:autocomplete_user_full_name]
 
   autocomplete :user, :full_name, full: true
@@ -19,9 +20,6 @@ class MessagesController < ApplicationController
 
   def new
     @message = Message.new
-    @companies_array = current_user.profileable.companies.all.collect {|c|
-      [c.title, AdminProfile.find(c.admin_profile_id).user.id]
-      } unless policy(message).is_an_admin?
     authorize message
   end
 
@@ -56,6 +54,12 @@ class MessagesController < ApplicationController
     def set_message
       @message = Message.find(params.require(:id))
       authorize message
+    end
+
+    def set_companies_array
+      @companies_array = current_user.profileable.companies.all.collect {|c|
+      [c.title, AdminProfile.find(c.admin_profile_id).user.id]
+      } unless policy(message).is_an_admin?
     end
 
     def message_params

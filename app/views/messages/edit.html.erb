@@ -1,0 +1,11 @@
+<% provide(:title, "Edit Message") %>
+
+<h1>Edit Message</h1>
+
+<%= render "form" %>
+
+<br>
+
+<%= link_to messages_path, class: "btn btn-primary back-button" do %>
+  <span class="glyphicon glyphicon-chevron-left"></span> Back to Messages
+<% end %>

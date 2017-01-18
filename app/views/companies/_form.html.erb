@@ -1,0 +1,33 @@
+<%= bootstrap_form_for(company) do |f| %>
+
+  <% if company.errors.any? %>
+    <div id="error_explanation">
+      <p>
+        <%= pluralize(company.errors.count, "error") %> prohibited this company
+        from being saved:
+      </p>
+
+      <ul>
+      <% company.errors.full_messages.each do |error_message| %>
+        <li><%= error_message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.text_field :title %>
+
+  <%= f.select :admin_profile_id, options_for_select(admin_array,
+    params[:admin_profile_id]), label: "Administrator name" %>
+
+  <div class="instruction-text">
+    Select the name of the person to be the Administrator of this company.
+    If they are not a registered user yet, you must first
+    <%= link_to "create their user account", new_user_path %>.
+  </div>
+
+  <br><br>
+
+  <%= f.submit "Submit Company", class: "btn btn-default btn-primary",
+      id: "submit_company" %>
+<% end %>

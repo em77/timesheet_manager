@@ -1,4 +1,4 @@
 class PayPeriod < ApplicationRecord
-  belongs_to :company
-  has_many :jobs
+  belongs_to :job
+  has_many :timesheets
 end

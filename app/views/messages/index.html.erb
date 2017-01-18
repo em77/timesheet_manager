@@ -1,6 +1,6 @@
 <% provide(:title, "Messages") %>
 
-<% if policy(Message).is_an_admin? %>
+<% if policy(message).is_an_admin? %>
   <% message_link_text = "Send Message to Employee" %>
 <% else %>
   <% message_link_text = "Send Message to the Manager" %>
