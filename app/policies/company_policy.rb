@@ -25,4 +25,8 @@ class CompanyPolicy < ApplicationPolicy
   def update?
     destroy?
   end
+
+  def show?
+    destroy?
+  end
 end

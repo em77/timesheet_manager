@@ -1,6 +1,6 @@
 class CompaniesController < ApplicationController
   before_action :require_login
-  before_action :set_company, only: [:edit, :update, :destroy]
+  before_action :set_company, only: [:edit, :update, :destroy, :show]
   before_action :set_referer, only: [:destroy, :edit, :new]
   before_action :set_admin_array, only: [:new, :edit]
   after_action :verify_authorized
@@ -16,6 +16,9 @@ class CompaniesController < ApplicationController
   def new
     @company = Company.new
     authorize company
+  end
+
+  def show
   end
 
   def edit
@@ -36,9 +39,17 @@ class CompaniesController < ApplicationController
   end
 
   def update
+    if @company.update(company_params)
+      flash[:success] = "Company updated successfully"
+      redirect_to companies_path
+    else
+      redirect_to companies_path, error: "Company update failed"
+    end
   end
 
   def destroy
+    company.destroy
+    redirect_to companies_path, notice: "Company deleted"
   end
 
   private
