@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :messages
   resources :users
   resources :companies
+  resources :jobs
 
   get "login" => "user_sessions#new", as: :login
   get "logout" => "user_sessions#destroy", as: :logout
