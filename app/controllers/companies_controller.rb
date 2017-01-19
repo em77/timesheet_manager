@@ -63,6 +63,6 @@ class CompaniesController < ApplicationController
     end
 
     def company_params
-      params.require(:company).permit(:admin_profile_id, :pay_freq, :title)
+      params.require(:company).permit(:admin_profile_id, :title)
     end
 end
