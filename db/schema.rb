@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170118221131) do
+ActiveRecord::Schema.define(version: 20170119195200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(version: 20170118221131) do
     t.datetime "updated_at",          null: false
     t.string   "title"
     t.integer  "pay_freq"
+    t.integer  "company_id"
+    t.index ["company_id"], name: "index_jobs_on_company_id", using: :btree
     t.index ["employee_profile_id"], name: "index_jobs_on_employee_profile_id", using: :btree
   end
 
@@ -67,8 +69,8 @@ ActiveRecord::Schema.define(version: 20170118221131) do
     t.date     "pay_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "jobs_id"
-    t.index ["jobs_id"], name: "index_pay_periods_on_jobs_id", using: :btree
+    t.integer  "job_id"
+    t.index ["job_id"], name: "index_pay_periods_on_job_id", using: :btree
   end
 
   create_table "timesheets", force: :cascade do |t|
