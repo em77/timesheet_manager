@@ -1,0 +1,58 @@
+<%= bootstrap_form_for(job) do |f| %>
+
+  <% if job.errors.any? %>
+    <div id="error_explanation">
+      <p>
+        <%= pluralize(company.errors.count, "error") %> prohibited this job
+        from being saved:
+      </p>
+
+      <ul>
+      <% job.errors.full_messages.each do |error_message| %>
+        <li><%= error_message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.text_field :title, value: (job.title || params[:title]) %>
+
+  <% if params[:user_id] %>
+    <% autocomplete_value = User.find(params[:user_id]).full_name %>
+    <% user_id_value = params[:user_id] %>
+  <% elsif job.employee_profile_id %>
+    <% user_id_value = EmployeeProfile.find(job.employee_profile_id).user.id %>
+    <% autocomplete_value = User.find(user_id_value).full_name %>
+  <% else %>
+    <% autocomplete_value = "" %>
+    <% user_id_value = params[:user_id] %>
+  <% end %>
+
+  <%= f.label :user_full_name, "Employee Name", class: "control-label" %>
+  <%= f.hidden_field :user_id, id: "the_user_id",
+    value: user_id_value %>
+
+  <%= f.autocomplete_field :user, autocomplete_user_full_name_jobs_path,
+    "data-auto-focus": true, id_element: "#the_user_id",
+    value: autocomplete_value, class: "form-control job-fields",
+    id: "employee-name-job-field", required: true %>
+
+  <div class="instruction-text" id="job-autocomplete-instruction">
+    Select the employee's name as it appears while typing
+  </div>
+
+  <%= f.text_field :pay, value: (humanized_money job.pay || params[:pay]) %>
+  <div class="instruction-text">E.g. 11.25</div>
+
+  <%= f.select :pay_type, ["wage", "shift"], label: "Pay Type",
+    selected: params[:pay_type] %>
+
+  <%= f.select :pay_freq, ["biweekly", "monthly"], selected: params[:pay_freq],
+    label: "Pay Frequency" %>
+
+  <%= f.hidden_field :company_id,
+    value: (job.company_id || params[:company_id]) %>
+
+  <%= f.submit "Submit Job", class: "btn btn-default btn-primary",
+      id: "submit_job" %>
+<% end %>

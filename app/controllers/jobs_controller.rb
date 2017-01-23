@@ -1,11 +1,14 @@
 class JobsController < ApplicationController
   before_action :require_login
   before_action :set_job, only: [:edit, :update, :destroy, :show]
+  before_action :set_company, only: [:new, :index]
   before_action :set_referer, only: [:destroy, :edit, :new]
   after_action :verify_authorized
 
-  attr_accessor :job, :jobs
-  helper_method :job, :jobs
+  autocomplete :user, :full_name, full: true
+
+  attr_accessor :job, :jobs, :company
+  helper_method :job, :jobs, :company
 
   def index
     @jobs = Job.where("company_id = ?", params.require(:company_id))
@@ -25,6 +28,8 @@ class JobsController < ApplicationController
 
   def create
     @job = Job.new(job_params)
+    user_id = params.require(:job).permit(:user_id)[:user_id]
+    @job.employee_profile_id = User.find(user_id).profileable_id
     authorize job
 
     if @job.valid?
@@ -40,15 +45,22 @@ class JobsController < ApplicationController
   def update
     if @job.update(job_params)
       flash[:success] = "Job updated successfully"
-      redirect_to jobs_path
+      redirect_to jobs_path(company_id: job.company_id)
     else
-      redirect_to jobs_path, error: "Job update failed"
+      redirect_to jobs_path(company_id: job.company_id),
+        error: "Job update failed"
     end
   end
 
   def destroy
     job.destroy
-    redirect_to jobs_path, notice: "Job deleted"
+    redirect_to jobs_path(company_id: job.company_id), notice: "Job deleted"
+  end
+
+  def get_autocomplete_items(parameters)
+    authorize Job, :is_an_admin?
+    items = active_record_get_autocomplete_items(parameters)
+    items.where(profileable_type: "EmployeeProfile")
   end
 
   private
@@ -57,8 +69,12 @@ class JobsController < ApplicationController
       authorize job
     end
 
+    def set_company
+      @company = Company.find(params.require(:company_id))
+    end
+
     def job_params
-      params.require(:job).permit(:pay_cents, :pay_type, :employee_profile_id,
+      params.require(:job).permit(:pay, :pay_type, :employee_profile_id,
         :company_id, :title, :pay_freq)
     end
 end

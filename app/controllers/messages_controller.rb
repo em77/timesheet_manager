@@ -59,7 +59,7 @@ class MessagesController < ApplicationController
     def set_companies_array
       @companies_array = current_user.profileable.companies.all.collect {|c|
       [c.title, AdminProfile.find(c.admin_profile_id).user.id]
-      } unless policy(message).is_an_admin?
+      } unless policy(Message).is_an_admin?
     end
 
     def message_params

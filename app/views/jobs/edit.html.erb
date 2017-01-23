@@ -1,0 +1,12 @@
+<% provide(:title, "Edit Job") %>
+
+<h1>Edit Job</h1>
+
+<%= render "form" %>
+
+<br>
+
+<%= link_to jobs_path(company_id: job.company_id),
+  class: "btn btn-primary back-button" do %>
+  <span class="glyphicon glyphicon-chevron-left"></span> Back to Jobs
+<% end %>

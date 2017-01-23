@@ -3,3 +3,8 @@
 <h4>
   <%= company.title %>
 </h4>
+
+<div class="btn-group">
+  <%= link_to("Jobs", jobs_path(company_id: company.id),
+    class: "btn btn-info") %>
+</div>
