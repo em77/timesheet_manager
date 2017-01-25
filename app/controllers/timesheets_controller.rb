@@ -29,6 +29,7 @@ class TimesheetsController < ApplicationController
     authorize timesheet
 
     if @timesheet.valid?
+      @timesheet.add_to_pay_period(params.require(:job_id))
       @timesheet.save
       redirect_to(session.delete(:return_to) || root_path,
         notice: "Successfully clocked in")

@@ -20,6 +20,7 @@ gem 'bootstrap-sass'
 gem 'bootstrap_form'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.43'
+gem 'holidays'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
