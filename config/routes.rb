@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :users
   resources :companies
   resources :jobs
+  resources :timesheets
 
   get "login" => "user_sessions#new", as: :login
   get "logout" => "user_sessions#destroy", as: :logout

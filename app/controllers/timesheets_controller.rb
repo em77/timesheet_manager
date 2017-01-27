@@ -5,8 +5,8 @@ class TimesheetsController < ApplicationController
   before_action :set_referer, only: [:destroy, :edit, :new]
   after_action :verify_authorized
 
-  attr_accessor :job, :jobs, :company
-  helper_method :job, :jobs, :company
+  attr_accessor :timesheet
+  helper_method :timesheet
 
   def index
     # @timesheets = Timesheet.where("company_id = ?", params.require(:company_id))
@@ -29,8 +29,9 @@ class TimesheetsController < ApplicationController
     authorize timesheet
 
     if @timesheet.valid?
-      @timesheet.add_to_pay_period(params.require(:job_id))
       @timesheet.save
+      job_id = params.require(:timesheet).permit(:job_id)[:job_id]
+      @timesheet.add_to_pay_period(job_id)
       redirect_to(session.delete(:return_to) || root_path,
         notice: "Successfully clocked in")
     else
@@ -41,6 +42,8 @@ class TimesheetsController < ApplicationController
 
   def update
     if @timesheet.update(timesheet_params)
+      job_id = params.require(:timesheet).permit(:job_id)[:job_id]
+      @timesheet.add_to_pay_period(job_id)
       flash[:success] = "Timesheet updated successfully"
       redirect_to timesheet_path(timesheet)
     else
@@ -60,9 +63,6 @@ class TimesheetsController < ApplicationController
       @timesheet = Timesheet.find(params.require(:id))
       authorize timesheet
     end
-
-    # def set_pay_period
-    # end
 
     def timesheet_params
       params.require(:timesheet).permit(:clock_in, :clock_out, :pay_period_id)

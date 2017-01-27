@@ -1,0 +1,21 @@
+<% provide(:title, "Timesheets") %>
+
+<h2>Timesheets</h2>
+
+<div class="outer_wrapper">
+  <div class="btn-group">
+    <%= link_to "New Timesheet",
+      new_timesheet_path(job_id: params[:job_id]),
+      class: "btn btn-success", id: "new_timesheet_button", method: :get %>
+  </div>
+    <div class="css_table">
+      <div class="css_tbody">
+        <% timesheets.each do |timesheet| %>
+          <div class="css_row">
+            <%= render timesheet %>
+          </div>
+          <hr>
+        <% end %>
+      </div>
+    </div>
+</div>

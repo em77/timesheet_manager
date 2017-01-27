@@ -1,0 +1,36 @@
+<%= bootstrap_form_for(timesheet, layout: :horizontal) do |f| %>
+
+  <% if timesheet.errors.any? %>
+    <div id="error_explanation">
+      <p>
+        <%= pluralize(timesheet.errors.count, "error") %> prohibited this
+        timesheet from being saved:
+      </p>
+
+      <ul>
+      <% timesheet.errors.full_messages.each do |error_message| %>
+        <li><%= error_message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if timesheet.clock_in %>
+    <%= f.text_field :clock_in, label: "Clock in time",
+      class: "datetimepicker", value: (timesheet.clock_in || params[:clock_in]),
+      required: true %>
+    <%= f.text_field :clock_out, label: "Clock out time",
+      class: "datetimepicker",
+      value: (timesheet.clock_out || params[:clock_out]), required: true %>
+  <% else %>
+    <%= f.text_field :clock_in, label: "Clock in time",
+      class: "datetimepicker", value: (timesheet.clock_in || params[:clock_in]),
+      required: true %>
+  <% end %>
+
+  <%= f.hidden_field :job_id,
+    value: (params[:job_id] || timesheet.pay_period.job_id) %>
+
+  <%= f.submit "Submit Timesheet", class: "btn btn-default btn-primary",
+      id: "submit_timesheet" %>
+<% end %>
