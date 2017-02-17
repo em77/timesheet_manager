@@ -9,8 +9,8 @@ class Timesheet < ApplicationRecord
 
   def add_to_pay_period(job_id)
     pay_period = PayPeriod.where(
-      "? > start_date AND ? < end_date AND job_id = ?",
-      self.clock_in, self.clock_out, job_id)
+      "(? BETWEEN start_date AND end_date) AND job_id = ?",
+      self.clock_in, job_id)
     if pay_period[0]
       pay_period[0].timesheets << self
     else

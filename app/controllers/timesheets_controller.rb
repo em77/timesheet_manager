@@ -1,16 +1,22 @@
 class TimesheetsController < ApplicationController
   before_action :require_login
   before_action :set_timesheet, only: [:edit, :update, :destroy, :show]
-  # before_action :set_pay_period, only: [:new, :index]
   before_action :set_referer, only: [:destroy, :edit, :new]
   after_action :verify_authorized
 
-  attr_accessor :timesheet
-  helper_method :timesheet
+  attr_accessor :timesheet, :pay_periods, :timesheets, :pay_periods
+  helper_method :timesheet, :pay_periods, :timesheets, :pay_periods
 
   def index
-    # @timesheets = Timesheet.where("company_id = ?", params.require(:company_id))
-    # authorize timesheets
+    pay_period_id = params.permit(:pay_period_id)[:pay_period_id]
+    job_id = params.require(:job_id)
+    redirect_to root_path unless job_id || pay_period_id
+    if pay_period_id
+      @timesheets = Timesheet.where("pay_period_id = ?", pay_period_id)
+    else
+      @pay_periods = PayPeriod.where("job_id = ?", job_id)
+    end
+    authorize Timesheet
   end
 
   def new

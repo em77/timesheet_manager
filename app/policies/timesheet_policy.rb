@@ -21,7 +21,11 @@ class TimesheetPolicy < ApplicationPolicy
   end
 
   def edit?
-    destroy?
+    if is_an_admin? || (@timesheet.clock_in && @timesheet.unapproved?)
+      return true
+    else
+      return false
+    end 
   end
 
   def update?
