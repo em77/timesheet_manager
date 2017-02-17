@@ -1,8 +1,19 @@
 <div class="css_cell">
-  <%= timesheet.clock_in %>
+  <%= link_to timesheet.pay_period.job.company.title,
+    jobs_path(company_id: timesheet.pay_period.job.company_id) %>
 </div>
 <div class="css_cell">
-  <%= timesheet.clock_out %>
+  <%= timesheet.pay_period.job.title %>
+</div>
+<div class="css_cell">
+  <%= EmployeeProfile.find(timesheet.pay_period.job.employee_profile_id)
+    .user.full_name %>
+</div>
+<div class="css_cell">
+  <%= timesheet.clock_in.strftime("%b %e, %Y - %l:%M %p") %>
+</div>
+<div class="css_cell">
+  <%= timesheet.clock_out.strftime("%b %e, %Y - %l:%M %p") %>
 </div>
 <div class="css_cell">
   <%= link_to edit_timesheet_path(timesheet) do %>

@@ -44,3 +44,27 @@ body {
   font-style: italic;
   padding-left: 0.25em;
 }
+
+.css_table {
+  display: table;
+}
+
+.css_row {
+  display: table-row;
+}
+
+.css_cell {
+  display: table-cell;
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center;
+}
+
+.css_tbody {
+  display: table-row-group;
+}
+
+.css_title_cell {
+  font-weight: bold;
+}
