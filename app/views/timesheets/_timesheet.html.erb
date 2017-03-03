@@ -24,5 +24,8 @@
   <%= ( (timesheet.clock_out - timesheet.clock_in) / 3600 ).round(2) %>
 </div>
 <div class="css_cell">
-  Approved button
+  <%= link_to "", approve_timesheet_path(timesheet_id: timesheet.id,
+    css_id: status_id_maker(timesheet.id), format: :js),
+    class: "btn btn-default status_button #{status_css_maker(timesheet)}",
+    id: status_id_maker(timesheet.id), method: "get", remote: true %>
 </div>

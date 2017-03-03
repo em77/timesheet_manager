@@ -1,0 +1,9 @@
+<% if timesheet.approved? %>
+  $("#<%= css_id %>").addClass("status_unapproved");
+  $("#<%= css_id %>").removeClass("glyphicon glyphicon-ok status_approved");
+  <% timesheet.unapproved! %>
+<% else %>
+  $("#<%= css_id %>").removeClass("status_unapproved");
+  $("#<%= css_id %>").addClass("glyphicon glyphicon-ok status_approved");
+  <% timesheet.approved! %>
+<% end %>

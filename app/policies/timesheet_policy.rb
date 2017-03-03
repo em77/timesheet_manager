@@ -35,4 +35,8 @@ class TimesheetPolicy < ApplicationPolicy
   def show?
     true
   end
+
+  def toggle_approved?
+    is_an_admin?
+  end
 end

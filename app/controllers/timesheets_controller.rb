@@ -4,8 +4,8 @@ class TimesheetsController < ApplicationController
   before_action :set_referer, only: [:destroy, :edit, :new]
   after_action :verify_authorized
 
-  attr_accessor :timesheet, :pay_periods, :timesheets, :pay_periods
-  helper_method :timesheet, :pay_periods, :timesheets, :pay_periods
+  attr_accessor :timesheet, :pay_periods, :timesheets, :pay_periods, :css_id
+  helper_method :timesheet, :pay_periods, :timesheets, :pay_periods, :css_id
 
   def index
     pay_period_id = params.permit(:pay_period_id)[:pay_period_id]
@@ -17,6 +17,15 @@ class TimesheetsController < ApplicationController
       @pay_periods = PayPeriod.where("job_id = ?", job_id)
     end
     authorize Timesheet
+  end
+
+  def toggle_approved
+    @timesheet = Timesheet.find(params.require(:timesheet_id))
+    authorize timesheet
+    @css_id = params.require(:css_id)
+    respond_to do |format|
+      format.js
+    end
   end
 
   def new
