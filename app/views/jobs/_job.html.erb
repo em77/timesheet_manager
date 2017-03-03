@@ -5,6 +5,12 @@
   <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
 </div>
 <div class="css_cell">
+  <%= EmployeeProfile.find(job.employee_profile_id).user.full_name %>
+</div>
+<div class="css_cell">
+  <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+</div>
+<div class="css_cell">
   <div class="btn-group">
     <%= link_to("Timesheets", timesheets_path(job_id: job.id),
       class: "btn btn-primary") %>
