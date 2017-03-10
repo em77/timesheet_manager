@@ -3,8 +3,7 @@
 <h2>
   Timesheets -
   <%= Job.find(params[:job_id]).title %> -
-  <%= EmployeeProfile.find(Job.find(params[:job_id]).employee_profile_id)
-    .user.full_name %>
+  <%= Job.find(params[:job_id]).employee_profile.user.full_name %>
 </h2>
 
 <div class="outer_wrapper">

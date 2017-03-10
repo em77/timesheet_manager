@@ -7,6 +7,16 @@
 <div class="css_cell">
   <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
 </div>
+<% unless user.is_an_admin? %>
+  <div class="css_cell">
+    <%= bootstrap_form_tag(url: add_user_to_company_path) do %>
+      <%= hidden_field_tag :user_id, user.id %>
+      <%= collection_select :user, :company_id, Company.all, :id, :title,
+        {}, {class: "form-control"} %>
+      <%= submit_tag "Add", class: "btn btn-default btn-primary" %>
+    <% end %>
+  </div>
+<% end %>
 <div class="css_cell">
   <div class="btn-group">
     <%= link_to("Edit User", edit_user_path(user), class: "btn btn-info") %>

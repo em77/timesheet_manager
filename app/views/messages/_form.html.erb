@@ -15,7 +15,7 @@
     </div>
   <% end %>
   
-  <% if policy(message).is_an_admin? %>
+  <% if current_user.is_an_admin? %>
     <%= f.label :user_full_name, "Employee Name",
       class: "control-label" %>
     <%= f.hidden_field :recipient_user_id, id: "the_user_id",

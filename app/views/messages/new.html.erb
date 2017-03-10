@@ -4,7 +4,7 @@
   <div class="panel panel-primary">
     <div class="panel-heading">
       <h4>
-        <% if policy(message).is_an_admin? %>
+        <% if current_user.is_an_admin? %>
           Send new message to employee
         <% else %>
           Send new message to the manager

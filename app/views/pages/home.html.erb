@@ -1,3 +1,9 @@
 <% provide(:title, "Home") %>
 
-Home
+<% if logged_in? && current_user.is_an_admin? %>
+  <%= render "admin_home" %>
+<% elsif logged_in? %>
+  <%= render "employee_home" %>
+<% else %>
+  Home
+<% end %>

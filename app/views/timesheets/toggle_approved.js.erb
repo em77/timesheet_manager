@@ -1,9 +1,11 @@
 <% if timesheet.approved? %>
   $("#<%= css_id %>").addClass("status_unapproved");
   $("#<%= css_id %>").removeClass("glyphicon glyphicon-ok status_approved");
+  <% timesheet.approving_admin_profile_id = nil %>
   <% timesheet.unapproved! %>
 <% else %>
   $("#<%= css_id %>").removeClass("status_unapproved");
   $("#<%= css_id %>").addClass("glyphicon glyphicon-ok status_approved");
+  <% timesheet.approving_admin_profile_id = current_user.profileable_id %>
   <% timesheet.approved! %>
 <% end %>

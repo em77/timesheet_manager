@@ -7,6 +7,10 @@ class User < ApplicationRecord
     message: "- Passwords must match", if: :password
   validates_uniqueness_of :username
 
+  def is_an_admin?
+    self.profileable_type == "AdminProfile"
+  end
+
   def set_full_name
     self.update_column(:full_name, "#{self.first_name} #{self.last_name}")
   end

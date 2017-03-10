@@ -1,0 +1,8 @@
+<% if timesheets.empty? %>
+  <%= render "new_timesheet_link_form" %>
+<% else %>
+  <% timesheets.each do |timesheet| %>
+    <%= link_to "Clock out from #{timesheet.pay_period.job.company.title}",
+      edit_timesheet_path(timesheet), class: "btn btn-danger" %>
+  <% end %>
+<% end %>

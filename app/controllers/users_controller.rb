@@ -3,8 +3,8 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:destroy, :edit, :update]
   after_action :verify_authorized
 
-  attr_accessor :user, :users
-  helper_method :user, :users
+  attr_accessor :user, :users, :companies_array
+  helper_method :user, :users, :companies_array
 
   def zero_users_or_authenticated
     unless User.count == 0 || current_user
@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    @users = User.all.order("last_name ASC")
     authorize users
   end
 
@@ -53,6 +53,22 @@ class UsersController < ApplicationController
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def add_user_to_company
+    user = User.find( params.require(:user_id) )
+    authorize user
+    company = Company.find(
+      params.require(:user).permit(:company_id)[:company_id] )
+    user.profileable.add_company_to_self(company)
+    if user.profileable.companies.include?(company)
+      flash[:success] = "#{user.full_name} successfully added to " +
+        company.title
+      redirect_to users_path
+    else
+      redirect_to users_path, error: "Error adding #{user.full_name} to " +
+        company.title
     end
   end
 

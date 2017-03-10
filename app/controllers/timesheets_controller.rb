@@ -60,10 +60,10 @@ class TimesheetsController < ApplicationController
       job_id = params.require(:timesheet).permit(:job_id)[:job_id]
       @timesheet.add_to_pay_period(job_id)
       flash[:success] = "Timesheet updated successfully"
-      redirect_to timesheet_path(timesheet)
+      redirect_to(session.delete(:return_to) || root_path)
     else
-      redirect_to timesheet_path(timesheet),
-        error: "Timesheet update failed"
+      redirect_to(session.delete(:return_to) || root_path,
+        error: "Timesheet update failed")
     end
   end
 

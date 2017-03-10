@@ -8,4 +8,9 @@ class EmployeeProfile < ApplicationRecord
   def set_default_active_status
     self.active_status ||= :active
   end
+
+  def add_company_to_self(company)
+    return if self.companies.include?(company)
+    self.companies << company
+  end
 end

@@ -6,14 +6,17 @@
   <%= timesheet.pay_period.job.title %>
 </div>
 <div class="css_cell">
-  <%= EmployeeProfile.find(timesheet.pay_period.job.employee_profile_id)
-    .user.full_name %>
+  <%= timesheet.pay_period.job.employee_profile.user.full_name %>
 </div>
 <div class="css_cell">
   <%= timesheet.clock_in.strftime("%b %e, %Y - %l:%M %p") %>
 </div>
 <div class="css_cell">
-  <%= timesheet.clock_out.strftime("%b %e, %Y - %l:%M %p") %>
+  <% if timesheet.clock_out %>
+    <%= timesheet.clock_out.strftime("%b %e, %Y - %l:%M %p") %>
+  <% else %>
+    "Not Clocked Out"
+  <% end %>
 </div>
 <div class="css_cell">
   <%= link_to edit_timesheet_path(timesheet) do %>
@@ -21,11 +24,19 @@
   <% end %>
 </div>
 <div class="css_cell">
-  <%= ( (timesheet.clock_out - timesheet.clock_in) / 3600 ).round(2) %>
+  <% hours_calc = ( ( (timesheet.clock_out || Time.zone.now) -
+    timesheet.clock_in) / 3600 ).round(2) %>
+  <% if timesheet.clock_out %>
+    <%= hours_calc %>
+  <% else %>
+    <%= hours_calc %> (Currently)
+  <% end %>
 </div>
-<div class="css_cell">
-  <%= link_to "", approve_timesheet_path(timesheet_id: timesheet.id,
-    css_id: status_id_maker(timesheet.id), format: :js),
-    class: "btn btn-default status_button #{status_css_maker(timesheet)}",
-    id: status_id_maker(timesheet.id), method: "get", remote: true %>
-</div>
+<% if timesheet.clock_out %>
+  <div class="css_cell">
+    <%= link_to "", approve_timesheet_path(timesheet_id: timesheet.id,
+      css_id: status_id_maker(timesheet.id), format: :js),
+      class: "btn btn-default status_button #{status_css_maker(timesheet)}",
+      id: status_id_maker(timesheet.id), method: "get", remote: true %>
+  </div>
+<% end %>
