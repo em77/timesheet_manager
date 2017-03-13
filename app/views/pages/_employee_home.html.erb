@@ -1,4 +1,4 @@
-<% if timesheets.empty? %>
+<% if timesheets.empty? && !current_user.profileable.companies.empty? %>
   <%= render "new_timesheet_link_form" %>
 <% else %>
   <% timesheets.each do |timesheet| %>

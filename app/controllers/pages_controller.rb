@@ -7,8 +7,9 @@ class PagesController < ApplicationController
     if logged_in? && current_user.is_an_admin?
       @timesheets = currently_clocked_in
     elsif logged_in?
-      @timesheets = currently_clocked_in.joins(
+      @timesheets = Timesheet.joins(
         pay_period: { job: { employee_profile: :user } })
+        .where("users.id = ? AND clock_out IS ?", current_user.id, nil)
       @company_and_job_array = company_and_job_array_maker
     end
   end
