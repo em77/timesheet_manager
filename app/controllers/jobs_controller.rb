@@ -29,11 +29,13 @@ class JobsController < ApplicationController
   def create
     @job = Job.new(job_params)
     user_id = params.require(:job).permit(:user_id)[:user_id]
+    company_id = params.require(:job).permit(:company_id)[:company_id]
     @job.employee_profile_id = User.find(user_id).profileable_id
     authorize job
 
     if @job.valid?
       @job.save
+      job.employee_profile.add_company_to_self(Company.find(company_id))
       redirect_to(session.delete(:return_to) || jobs_path,
         notice: "Job created successfully")
     else
@@ -53,6 +55,10 @@ class JobsController < ApplicationController
   end
 
   def destroy
+    if job.employee_profile.jobs.where(
+      "company_id = ?", job.company_id).count == 1
+      job.employee_profile.remove_company_from_self(job.company)
+    end
     job.destroy
     redirect_to jobs_path(company_id: job.company_id), notice: "Job deleted"
   end

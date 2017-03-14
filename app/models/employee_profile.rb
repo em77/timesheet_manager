@@ -13,4 +13,9 @@ class EmployeeProfile < ApplicationRecord
     return if self.companies.include?(company)
     self.companies << company
   end
+
+  def remove_company_from_self(company)
+    return unless self.companies.include?(company)
+    self.companies.delete(company)
+  end
 end
