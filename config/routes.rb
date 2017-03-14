@@ -20,8 +20,8 @@ Rails.application.routes.draw do
   get "/approve_timesheet" => "timesheets#toggle_approved",
     as: "approve_timesheet"
 
-  post "add_user_to_company" => "users#add_user_to_company",
-    as: "add_user_to_company"
+  # post "add_user_to_company" => "users#add_user_to_company",
+  #   as: "add_user_to_company"
 
   root to: "pages#home"
 end
