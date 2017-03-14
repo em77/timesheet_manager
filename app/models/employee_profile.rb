@@ -18,4 +18,8 @@ class EmployeeProfile < ApplicationRecord
     return unless self.companies.include?(company)
     self.companies.delete(company)
   end
+
+  def only_job_at_company?(company)
+    self.jobs.where("company_id = ?", company.id).count == 1
+  end
 end

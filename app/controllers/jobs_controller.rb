@@ -45,7 +45,14 @@ class JobsController < ApplicationController
   end
 
   def update
-    if @job.update(job_params)
+    user_id = params.require(:job).permit(:user_id)[:user_id]
+    company_id = params.require(:job).permit(:company_id)[:company_id]
+    employee_profile_id = User.find(user_id).profileable_id
+    if @job.valid?
+      @job.assign_attributes( job_params.merge(
+        company_id: company_id, employee_profile_id: employee_profile_id) )
+      update_assoc_on_changed_emp
+      @job.save
       flash[:success] = "Job updated successfully"
       redirect_to jobs_path(company_id: job.company_id)
     else
@@ -54,9 +61,17 @@ class JobsController < ApplicationController
     end
   end
 
+  def update_assoc_on_changed_emp
+    return unless job.employee_profile_id_changed?
+    job.employee_profile.add_company_to_self(job.company)
+    prev_employee_profile = EmployeeProfile.find(job.employee_profile_id_was)
+    if prev_employee_profile.only_job_at_company?(job.company)
+      prev_employee_profile.remove_company_from_self(job.company)
+    end
+  end
+
   def destroy
-    if job.employee_profile.jobs.where(
-      "company_id = ?", job.company_id).count == 1
+    if job.employee_profile.only_job_at_company?(job.company)
       job.employee_profile.remove_company_from_self(job.company)
     end
     job.destroy
