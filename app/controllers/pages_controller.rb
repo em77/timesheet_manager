@@ -3,13 +3,16 @@ class PagesController < ApplicationController
   helper_method :timesheets, :company_and_job_array
 
   def home
-    currently_clocked_in = Timesheet.where("clock_out IS ?", nil)
     if logged_in? && current_user.is_an_admin?
-      @timesheets = currently_clocked_in
+      @timesheets = Timesheet.joins(
+        pay_period: { job: :company })
+        .where("companies.admin_profile_id = ? AND clock_out IS ?",
+        current_user.profileable_id, nil)
     elsif logged_in?
       @timesheets = Timesheet.joins(
         pay_period: { job: { employee_profile: :user } })
-        .where("users.id = ? AND clock_out IS ?", current_user.id, nil)
+        .where("users.id = ? AND clock_out IS ?",
+        current_user.id, nil)
       @company_and_job_array = company_and_job_array_maker
     end
   end

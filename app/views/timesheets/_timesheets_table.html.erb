@@ -1,0 +1,7 @@
+<%= render "timesheets/timesheets_table_header" %>
+<% timesheets.each do |timesheet| %>
+  <div class="css_row">
+    <%= render timesheet %>
+  </div>
+  <hr>
+<% end %>
