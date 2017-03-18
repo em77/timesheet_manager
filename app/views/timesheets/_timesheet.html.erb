@@ -15,7 +15,7 @@
   <% if timesheet.clock_out %>
     <%= timesheet.clock_out.strftime("%b %e, %Y - %l:%M %p") %>
   <% else %>
-    "Not Clocked Out"
+    Not Clocked Out
   <% end %>
 </div>
 <div class="css_cell">
@@ -39,4 +39,6 @@
       class: "btn btn-default status_button #{status_css_maker(timesheet)}",
       id: status_id_maker(timesheet.id), method: "get", remote: true %>
   </div>
+<% else %>
+  Not Clocked Out
 <% end %>
