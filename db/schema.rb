@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170119195200) do
+ActiveRecord::Schema.define(version: 20170318195323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,9 +35,8 @@ ActiveRecord::Schema.define(version: 20170119195200) do
   end
 
   create_table "employee_profiles", force: :cascade do |t|
-    t.integer  "active_status"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "jobs", force: :cascade do |t|
@@ -98,6 +97,7 @@ ActiveRecord::Schema.define(version: 20170119195200) do
     t.string   "remember_me_token"
     t.datetime "remember_me_token_expires_at"
     t.string   "full_name"
+    t.integer  "active_status"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["profileable_type", "profileable_id"], name: "index_users_on_profileable_type_and_profileable_id", using: :btree
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token", using: :btree

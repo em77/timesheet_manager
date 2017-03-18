@@ -6,9 +6,15 @@ class User < ApplicationRecord
   validates_confirmation_of :password,
     message: "- Passwords must match", if: :password
   validates_uniqueness_of :username
+  enum active_status: [:active, :inactive]
 
   def is_an_admin?
     self.profileable_type == "AdminProfile"
+  end
+
+  # Tell Sorcery to deny authentication to inactive users
+  def active_for_authentication?
+    self.active?
   end
 
   def set_full_name
