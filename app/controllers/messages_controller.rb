@@ -50,6 +50,13 @@ class MessagesController < ApplicationController
   def destroy
   end
 
+  def get_autocomplete_items(parameters)
+    authorize Message, :is_an_admin?
+    items = active_record_get_autocomplete_items(parameters)
+    items.where(active_status: "active").where(
+      profileable_type: "EmployeeProfile")
+  end
+
   private
     def set_message
       @message = Message.find(params.require(:id))
