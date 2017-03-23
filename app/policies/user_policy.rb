@@ -26,6 +26,10 @@ class UserPolicy < ApplicationPolicy
     is_an_admin?
   end
 
+  def change_active_status?
+    is_an_admin?
+  end
+
   # def add_user_to_company?
   #   is_an_admin?
   # end

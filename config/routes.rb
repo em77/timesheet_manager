@@ -20,6 +20,9 @@ Rails.application.routes.draw do
   get "/approve_timesheet" => "timesheets#toggle_approved",
     as: "approve_timesheet"
 
+  get "/change_active_status" => "users#change_active_status",
+    as: "change_active_status"
+
   # post "add_user_to_company" => "users#add_user_to_company",
   #   as: "add_user_to_company"
 

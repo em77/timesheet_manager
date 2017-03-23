@@ -12,6 +12,21 @@
   <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
 </div>
 
+<div class="css_cell">
+  <% if user.active? %>
+    <% archive_button_text = "Archive User" %>
+    <% archive_button_class = "btn btn-warning" %>
+  <% else %>
+    <% archive_button_text = "Reactivate User" %>
+    <% archive_button_class = "btn btn-success" %>
+  <% end %>
+    <%= link_to(archive_button_text,
+      change_active_status_path(user_id: user.id),
+      data: { confirm: "Are you sure you want to change the status of" +
+      " #{user.full_name}'s account?" },
+      class: archive_button_class) unless user == current_user %>
+</div>
+
 <% if false %>
   <% unless user.is_an_admin? %>
     <div class="css_cell">
@@ -33,7 +48,7 @@
 <div class="css_cell">
   <div class="btn-group">
     <%= link_to("Delete User", user_path(user),
-      data: { :confirm => "Are you sure you want to delete this user?" },
+      data: { confirm: "Are you sure you want to delete this user?" },
       method: :delete, class: "btn btn-danger") unless user == current_user %>
   </div>
 </div>

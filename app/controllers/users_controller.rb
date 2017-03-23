@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all.order("last_name ASC")
+    @users = User.all.order("active_status ASC, last_name ASC, first_name ASC")
     authorize users
   end
 
@@ -54,6 +54,19 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def change_active_status
+    user = User.find( params.require(:user_id) )
+    authorize user
+    if user.active?
+      user.inactive!
+      flash[:success] = "#{user.full_name} was archived."
+    else
+      user.active!
+      flash[:success] = "#{user.full_name}'s account was made active again."
+    end
+    redirect_to users_path
   end
 
   # def add_user_to_company
