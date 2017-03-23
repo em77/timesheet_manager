@@ -3,5 +3,6 @@ class Job < ApplicationRecord
   belongs_to :company
   has_many :pay_periods
   enum pay_freq: [:biweekly, :monthly]
+  enum active_status: [:active, :inactive]
   monetize :pay_cents
 end

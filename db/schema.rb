@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170318195323) do
+ActiveRecord::Schema.define(version: 20170323212010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20170318195323) do
     t.string   "title"
     t.integer  "pay_freq"
     t.integer  "company_id"
+    t.integer  "active_status"
     t.index ["company_id"], name: "index_jobs_on_company_id", using: :btree
     t.index ["employee_profile_id"], name: "index_jobs_on_employee_profile_id", using: :btree
   end
@@ -96,8 +97,8 @@ ActiveRecord::Schema.define(version: 20170318195323) do
     t.datetime "updated_at"
     t.string   "remember_me_token"
     t.datetime "remember_me_token_expires_at"
-    t.string   "full_name"
     t.integer  "active_status"
+    t.string   "full_name"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["profileable_type", "profileable_id"], name: "index_users_on_profileable_type_and_profileable_id", using: :btree
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token", using: :btree
