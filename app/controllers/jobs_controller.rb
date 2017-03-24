@@ -89,6 +89,7 @@ class JobsController < ApplicationController
       " as #{job.title} was archived."
     else
       job.active!
+      job.employee_profile.user.active!
       flash[:success] = "#{job.employee_profile.user.full_name}'s job" +
       " as #{job.title} was made active again."
     end
