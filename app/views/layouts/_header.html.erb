@@ -19,7 +19,8 @@
         <% if logged_in? %>
           <li>
             <p class="navbar-text">
-              Signed in as <%= current_user.first_name || current_user.username %>
+              Signed in as
+                <%= current_user.full_name || current_user.username %>
             </p>
           </li>
 
