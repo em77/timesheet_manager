@@ -11,9 +11,17 @@ class JobsController < ApplicationController
   helper_method :job, :jobs, :company
 
   def index
-    @jobs = Job.where("company_id = ?", params.require(:company_id))
-      .joins(employee_profile: :user)
-      .order("last_name ASC, first_name ASC")
+    if params[:show_inactive]
+      @jobs = Job.where(company_id: params.require(:company_id))
+        .where(active_status: :inactive)
+        .joins(employee_profile: :user)
+        .order("last_name ASC, first_name ASC")
+    else
+      @jobs = Job.where(company_id: params.require(:company_id))
+        .where(active_status: :active)
+        .joins(employee_profile: :user)
+        .order("last_name ASC, first_name ASC")
+    end
     authorize jobs
   end
 

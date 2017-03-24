@@ -14,7 +14,13 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all.order("active_status ASC, last_name ASC, first_name ASC")
+    if params[:show_inactive]
+      @users = User.where(active_status: :inactive)
+        .order("last_name ASC, first_name ASC")
+    else
+      @users = User.where(active_status: :active)
+        .order("last_name ASC, first_name ASC")
+    end
     authorize users
   end
 

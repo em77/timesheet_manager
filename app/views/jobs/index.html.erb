@@ -7,6 +7,18 @@
     <%= link_to "New Job", new_job_path(company_id: params[:company_id]),
       class: "btn btn-success",
       id: "new_job_button", method: :get %>
+
+    <% if params[:show_inactive] %>
+      <%= link_to "Show Active Jobs",
+        jobs_path(company_id: params[:company_id]),
+        class: "btn btn-primary", id: "show_active_jobs_button",
+        method: :get %>
+    <% else %>
+      <%= link_to "Show Archived Jobs",
+        jobs_path(company_id: params[:company_id], show_inactive: true),
+        class: "btn btn-warning", id: "show_inactive_jobs_button",
+        method: :get %>
+    <% end %>
   </div>
     <div class="css_table">
       <div class="css_tbody">

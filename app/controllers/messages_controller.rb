@@ -53,7 +53,7 @@ class MessagesController < ApplicationController
   def get_autocomplete_items(parameters)
     authorize Message, :is_an_admin?
     items = active_record_get_autocomplete_items(parameters)
-    items.where(active_status: "active").where(
+    items.where(active_status: :active).where(
       profileable_type: "EmployeeProfile")
   end
 

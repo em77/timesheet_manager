@@ -4,6 +4,16 @@
   <div class="btn-group">
     <%= link_to "New User", new_user_path, class: "btn btn-success",
       id: "new_user_button", method: :get %>
+      
+    <% if params[:show_inactive] %>
+      <%= link_to "Show Active Users", users_path,
+        class: "btn btn-primary", id: "show_active_users_button",
+        method: :get %>
+    <% else %>
+      <%= link_to "Show Archived Users", users_path(show_inactive: true),
+        class: "btn btn-warning", id: "show_inactive_users_button",
+        method: :get %>
+    <% end %>
   </div>
     <div class="css_table">
       <div class="css_tbody">
