@@ -12,6 +12,8 @@ class JobsController < ApplicationController
 
   def index
     @jobs = Job.where("company_id = ?", params.require(:company_id))
+      .joins(employee_profile: :user)
+      .order("last_name ASC, first_name ASC")
     authorize jobs
   end
 
@@ -76,6 +78,21 @@ class JobsController < ApplicationController
     end
     job.destroy
     redirect_to jobs_path(company_id: job.company_id), notice: "Job deleted"
+  end
+
+  def change_active_status
+    job = Job.find( params.require(:job_id) )
+    authorize job
+    if job.active?
+      job.inactive!
+      flash[:success] = "#{job.employee_profile.user.full_name}'s job" +
+      " as #{job.title} was archived."
+    else
+      job.active!
+      flash[:success] = "#{job.employee_profile.user.full_name}'s job" +
+      " as #{job.title} was made active again."
+    end
+    redirect_to jobs_path(company_id: job.company_id)
   end
 
   def get_autocomplete_items(parameters)

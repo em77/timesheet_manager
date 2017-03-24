@@ -31,4 +31,8 @@ class JobPolicy < ApplicationPolicy
   def show?
     destroy?
   end
+
+  def change_active_status?
+    is_an_admin?
+  end
 end

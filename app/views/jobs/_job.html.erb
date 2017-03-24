@@ -20,6 +20,20 @@
   <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
 </div>
 <div class="css_cell">
+  <% if job.active? %>
+    <% archive_button_text = "Archive Job" %>
+    <% archive_button_class = "btn btn-warning" %>
+  <% else %>
+    <% archive_button_text = "Reactivate Job" %>
+    <% archive_button_class = "btn btn-success" %>
+  <% end %>
+    <%= link_to(archive_button_text,
+      change_job_active_status_path(job_id: job.id),
+      data: { confirm: "Are you sure you want to change the status of" +
+      " this job?" },
+      class: archive_button_class) %>
+</div>
+<div class="css_cell">
   <div class="btn-group">
     <%= link_to("Edit Job", edit_job_path(job),
       class: "btn btn-info") %>

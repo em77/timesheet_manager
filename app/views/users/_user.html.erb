@@ -21,7 +21,7 @@
     <% archive_button_class = "btn btn-success" %>
   <% end %>
     <%= link_to(archive_button_text,
-      change_active_status_path(user_id: user.id),
+      change_user_active_status_path(user_id: user.id),
       data: { confirm: "Are you sure you want to change the status of" +
       " #{user.full_name}'s account?" },
       class: archive_button_class) unless user == current_user %>
