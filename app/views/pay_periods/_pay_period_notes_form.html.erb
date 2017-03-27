@@ -1,0 +1,24 @@
+<%= bootstrap_form_for(pay_period, method: :put) do |f| %>
+
+  <% if pay_period.errors.any? %>
+    <div id="error_explanation">
+      <p>
+        <%= pluralize(pay_period.errors.count, "error") %> prohibited this
+          pay period from being saved:
+      </p>
+
+      <ul>
+        <% pay_period.errors.full_messages.each do |error_message| %>
+          <li><%= error_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.text_area :notes, value: pay_period.notes %>
+
+  <%= f.hidden_field :job_id, value: params[:job_id] %>
+
+  <%= f.submit "Save Notes", class: "btn btn-default btn-primary",
+    id: "submit_pay_period_notes" %>
+<% end %>

@@ -4,14 +4,18 @@ class TimesheetsController < ApplicationController
   before_action :set_referer, only: [:destroy, :edit, :new]
   after_action :verify_authorized
 
-  attr_accessor :timesheet, :pay_periods, :timesheets, :pay_periods, :css_id
-  helper_method :timesheet, :pay_periods, :timesheets, :pay_periods, :css_id
+  attr_accessor :timesheet, :timesheets, :pay_period, :pay_periods, :css_id,
+    :job
+  helper_method :timesheet, :timesheets, :pay_period, :pay_periods, :css_id,
+    :job
 
   def index
+    @job = Job.find(params.require(:job_id))
     pay_period_id = params.permit(:pay_period_id)[:pay_period_id]
     job_id = params.require(:job_id)
     redirect_to root_path unless job_id || pay_period_id
     if pay_period_id
+      @pay_period = PayPeriod.find(params.require(:pay_period_id))
       @timesheets = Timesheet.where("pay_period_id = ?", pay_period_id)
     else
       @pay_periods = PayPeriod.where("job_id = ?", job_id)

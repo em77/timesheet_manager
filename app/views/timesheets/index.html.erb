@@ -2,9 +2,15 @@
 
 <h2>
   Timesheets -
-  <%= Job.find(params[:job_id]).title %> -
-  <%= Job.find(params[:job_id]).employee_profile.user.full_name %>
+  <%= job.title %> -
+  <%= job.employee_profile.user.full_name %>
 </h2>
+
+<% if pay_period %>
+  <div id="pay_period_notes_form_wrapper">
+    <%= render "pay_periods/pay_period_notes_form" %>
+  </div>
+<% end %>
 
 <div class="outer_wrapper">
   <div class="btn-group">
