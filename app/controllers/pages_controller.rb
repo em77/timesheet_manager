@@ -8,7 +8,8 @@ class PagesController < ApplicationController
         pay_period: { job: :company })
         .where("companies.admin_profile_id = ? AND clock_out IS ?",
         current_user.profileable_id, nil)
-        .includes( { pay_period: { job: { employee_profile: :user } } } )
+        .includes( { pay_period: { job: { employee_profile: :user } } },
+          { pay_period: { job: :company } } )
     elsif logged_in?
       @timesheets = Timesheet.joins(
         pay_period: { job: { employee_profile: :user } })

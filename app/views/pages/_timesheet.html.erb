@@ -1,0 +1,23 @@
+<div class="css_cell">
+  <%= link_to timesheet.pay_period.job.company.title,
+    jobs_path(company_id: timesheet.pay_period.job.company_id) %>
+</div>
+<div class="css_cell">
+  <%= timesheet.pay_period.job.title %>
+</div>
+<div class="css_cell">
+  <%= timesheet.pay_period.job.employee_profile.user.full_name %>
+</div>
+<div class="css_cell">
+  <%= timesheet.clock_in.strftime("%b %e, %Y - %l:%M %p") %>
+</div>
+<div class="css_cell">
+  <%= link_to edit_timesheet_path(timesheet) do %>
+    <i class="glyphicon glyphicon-edit"></i>
+  <% end %>
+</div>
+<div class="css_cell">
+  <% hours_calc = ( ( (timesheet.clock_out || Time.zone.now) -
+    timesheet.clock_in) / 3600 ).round(2) %>
+  <%= hours_calc %> (Currently)
+</div>

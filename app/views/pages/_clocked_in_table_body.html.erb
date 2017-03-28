@@ -1,0 +1,6 @@
+<%= render "clocked_in_header" %>
+<% timesheets.each do |timesheet| %>
+  <div class="css_row">
+    <%= render partial: "timesheet", locals: {timesheet: timesheet} %>
+  </div>
+<% end %>
