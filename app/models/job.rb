@@ -4,6 +4,7 @@ class Job < ApplicationRecord
   has_many :pay_periods
   enum pay_freq: [:biweekly, :monthly]
   enum active_status: [:active, :inactive]
+  enum pay_type: [:wage, :shift]
   monetize :pay_cents
 
   def self.archive_jobs(employee_profile_id)

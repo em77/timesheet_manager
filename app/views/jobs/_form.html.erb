@@ -45,10 +45,10 @@
   <div class="instruction-text">E.g. 11.25</div>
 
   <%= f.select :pay_type, ["wage", "shift"], label: "Pay Type",
-    selected: params[:pay_type] %>
+    selected: (job.pay_type || params[:pay_type]) %>
 
-  <%= f.select :pay_freq, ["biweekly", "monthly"], selected: params[:pay_freq],
-    label: "Pay Frequency" %>
+  <%= f.select :pay_freq, ["biweekly", "monthly"],
+    selected: (job.pay_freq || params[:pay_freq]), label: "Pay Frequency" %>
 
   <%= f.hidden_field :company_id,
     value: (job.company_id || params[:company_id]) %>
