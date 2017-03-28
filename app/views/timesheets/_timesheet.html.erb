@@ -9,6 +9,12 @@
   <%= timesheet.pay_period.job.employee_profile.user.full_name %>
 </div>
 <div class="css_cell">
+  <%= humanized_money_with_symbol(timesheet.pay_period.job.pay) %>
+</div>
+<div class="css_cell">
+  <%= timesheet.pay_period.job.pay_type %>
+</div>
+<div class="css_cell">
   <%= timesheet.clock_in.strftime("%b %e, %Y - %l:%M %p") %>
 </div>
 <div class="css_cell">

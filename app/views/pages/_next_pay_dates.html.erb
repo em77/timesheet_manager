@@ -1,4 +1,4 @@
-<% current_user.profileable.jobs.each do |job| %>
+<% jobs.each do |job| %>
   <% next if job.pay_periods.empty? %>
   <% latest_pp = latest_pay_period(job) %>
   <% next if latest_pp.pay_date < Time.zone.now.to_date %>
