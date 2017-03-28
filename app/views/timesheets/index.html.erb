@@ -7,17 +7,17 @@
 </h2>
 
 <% if pay_period %>
-  <div class="panel panel-info">
+  <div class="panel panel-primary" id="notes-panel">
     <div class="panel-heading">
       <h4 class="panel-title">Notes</h4>
     </div>
     <div class="panel-content">
-      <h4><%= pay_period.notes if pay_period.notes %></h4>
-      <h5 id="edit-notes-toggler">
+      <h4 id="notes-content"><%= pay_period.notes if pay_period.notes %></h4>
+      <button class="btn btn-default" id="edit-notes-toggler" type="button">
         Edit Notes
         <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true">
         </span>
-      </h5>
+      </button>
       <div id="pay-period-notes-form-wrapper">
         <%= render "pay_periods/pay_period_notes_form" %>
       </div>
