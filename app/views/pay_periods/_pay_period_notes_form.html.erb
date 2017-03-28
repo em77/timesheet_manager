@@ -15,7 +15,7 @@
     </div>
   <% end %>
 
-  <%= f.text_area :notes, value: pay_period.notes %>
+  <%= f.text_area :notes, value: pay_period.notes, hide_label: true %>
 
   <%= f.hidden_field :job_id, value: params[:job_id] %>
 
