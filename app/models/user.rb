@@ -6,7 +6,14 @@ class User < ApplicationRecord
   validates_confirmation_of :password,
     message: "- Passwords must match", if: :password
   validates_uniqueness_of :username
+  validates :username, presence: true
+  validates :email, presence: true, if: "profileable_type == 'AdminProfile'"
   enum active_status: [:active, :inactive]
+  after_initialize :set_default_active_status, if: :new_record?
+
+  def set_default_active_status
+    self.active_status ||= :active
+  end
 
   def is_an_admin?
     self.profileable_type == "AdminProfile"
