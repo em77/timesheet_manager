@@ -7,4 +7,8 @@ module ApplicationHelper
       when :alert then "alert alert-warning"
     end
   end
+
+  def current_admin_user_companies
+    Company.where(admin_profile_id: current_user.profileable_id)
+  end
 end
