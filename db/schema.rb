@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170329183507) do
+ActiveRecord::Schema.define(version: 20170329185219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(version: 20170329183507) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
-    t.string   "username",                     null: false
+    t.string   "username",                        null: false
     t.string   "profileable_type"
     t.integer  "profileable_id"
     t.string   "crypted_password"
@@ -100,8 +100,12 @@ ActiveRecord::Schema.define(version: 20170329183507) do
     t.datetime "remember_me_token_expires_at"
     t.integer  "active_status"
     t.string   "full_name"
+    t.string   "reset_password_token"
+    t.datetime "reset_password_token_expires_at"
+    t.datetime "reset_password_email_sent_at"
     t.index ["profileable_type", "profileable_id"], name: "index_users_on_profileable_type_and_profileable_id", using: :btree
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token", using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
     t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end
 
