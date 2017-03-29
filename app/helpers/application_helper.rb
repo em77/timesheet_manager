@@ -11,4 +11,9 @@ module ApplicationHelper
   def current_admin_user_companies
     Company.where(admin_profile_id: current_user.profileable_id)
   end
+
+  def unread_message_count
+    Message.where(recipient_user_id: current_user.id,
+      read_status: :unread).count
+  end
 end
