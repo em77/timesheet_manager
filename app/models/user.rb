@@ -1,7 +1,8 @@
 class User < ApplicationRecord
-  belongs_to :profileable, polymorphic: true
+  belongs_to :profileable, polymorphic: true, dependent: :destroy
   after_save :set_full_name
   before_save :set_profileable, if: :new_record?
+  before_save :edit_profileable, if: :persisted?
   authenticates_with_sorcery!
   validates_confirmation_of :password,
     message: "- Passwords must match", if: :password
@@ -33,5 +34,14 @@ class User < ApplicationRecord
     profile = self.profileable_type.constantize.new
     profile.save
     self.profileable = profile
+  end
+
+  def edit_profileable
+    return unless self.profileable_type
+    original_user_record = User.find(self.id)
+    return if original_user_record.profileable_type == self.profileable_type
+    set_profileable
+    original_user_record.profileable_type.constantize
+      .find(original_user_record.profileable_id).destroy
   end
 end

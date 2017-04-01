@@ -76,22 +76,6 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-  # def add_user_to_company
-  #   user = User.find( params.require(:user_id) )
-  #   authorize user
-  #   company = Company.find(
-  #     params.require(:user).permit(:company_id)[:company_id] )
-  #   user.profileable.add_company_to_self(company)
-  #   if user.profileable.companies.include?(company)
-  #     flash[:success] = "#{user.full_name} successfully added to " +
-  #       company.title
-  #     redirect_to users_path
-  #   else
-  #     redirect_to users_path, error: "Error adding #{user.full_name} to " +
-  #       company.title
-  #   end
-  # end
-
   private
     def set_user
       @user = User.find(params.require(:id))
