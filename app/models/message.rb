@@ -1,6 +1,6 @@
 class Message < ApplicationRecord
-  belongs_to :admin_profile
-  belongs_to :employee_profile
+  belongs_to :sender, class_name: "User"
+  belongs_to :recipient, class_name: "User"
   enum read_status: [:unread, :read]
   after_initialize :set_default_read_status, if: :new_record?
 

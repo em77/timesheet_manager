@@ -11,10 +11,8 @@ class MessagesController < ApplicationController
   helper_method :message, :sent_messages, :rcvd_messages, :companies_array
 
   def index
-    @sent_messages = Message.where("sender_user_id = ?", current_user.id).order(
-      "updated_at asc")
-    @rcvd_messages = Message.where("recipient_user_id = ?", current_user.id)
-      .order("updated_at asc")
+    @sent_messages = current_user.sent_messages.order("updated_at asc")
+    @rcvd_messages = current_user.received_messages.order("updated_at asc")
     authorize sent_messages
   end
 
@@ -32,7 +30,7 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new(message_params)
     authorize message
-    @message.sender_user_id = current_user.id
+    @message.sender = current_user
 
     if @message.valid?
       @message.save
@@ -70,6 +68,6 @@ class MessagesController < ApplicationController
     end
 
     def message_params
-      params.require(:message).permit(:recipient_user_id, :subject, :content)
+      params.require(:message).permit(:recipient_id, :subject, :content)
     end
 end

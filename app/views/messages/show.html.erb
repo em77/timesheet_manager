@@ -1,26 +1,26 @@
 <% provide(:title, "View Message") %>
 
-<% message.read! if current_user.id == message.recipient_user_id %>
+<% message.read! if current_user == message.recipient %>
 
 <h2>
   <%= message.subject %>
 </h2>
 
 <h3>
-  From: <%= User.find(message.sender_user_id).full_name %>
+  From: <%= message.sender.full_name %>
 </h3>
 
 <h3>
-  To: <%= User.find(message.recipient_user_id).full_name %>
+  To: <%= message.recipient.full_name %>
 </h3>
 
 <h5>
   <%= message.content %>
 </h5>
 
-<% if current_user.id == message.recipient_user_id %>
+<% if current_user == message.recipient %>
   <h2>
     <%= link_to "Reply",
-      new_message_path(recipient_user_id: message.sender_user_id) %>
+      new_message_path(recipient_id: message.sender_id) %>
   </h2>
 <% end %>

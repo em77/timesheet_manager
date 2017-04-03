@@ -61,6 +61,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'webdrivers', '~> 2.3'
   gem 'database_cleaner'
   gem 'shoulda-matchers'
   # Fake data generator for testing

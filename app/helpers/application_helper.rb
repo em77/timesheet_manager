@@ -13,7 +13,6 @@ module ApplicationHelper
   end
 
   def unread_message_count
-    Message.where(recipient_user_id: current_user.id,
-      read_status: :unread).count
+    current_user.received_messages.where(read_status: :unread).count
   end
 end

@@ -31,7 +31,7 @@ feature "Send message" do
   scenario "employee can send message to a company they work for" do
     signin(@employee.username, "password")
     visit new_message_path
-    select(@company.title, from: "message_recipient_user_id")
+    select(@company.title, from: "message_recipient_id")
     fill_in "Subject", with: @message2.subject
     fill_in "Message", with: @message2.content
     find_button("submit_message").click

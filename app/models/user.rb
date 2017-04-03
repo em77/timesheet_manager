@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  has_many :sent_messages, class_name: "Message", foreign_key: "sender_id"
+  has_many :received_messages, class_name: "Message",
+    foreign_key: "recipient_id"
   belongs_to :profileable, polymorphic: true, dependent: :destroy
   after_save :set_full_name
   before_save :set_profileable, if: :new_record?

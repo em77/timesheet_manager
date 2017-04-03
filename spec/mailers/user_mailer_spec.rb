@@ -1,18 +1,21 @@
-require "rails_helper"
+# require "rails_helper"
 
-RSpec.describe UserMailerMailer, type: :mailer do
-  describe "reset_password_email" do
-    let(:mail) { UserMailerMailer.reset_password_email }
+# RSpec.describe UserMailer, type: :mailer do
+#   before(:each) do
+#     @user = create(:user, :admin)
+#   end
 
-    it "renders the headers" do
-      expect(mail.subject).to eq("Reset password email")
-      expect(mail.to).to eq(["to@example.org"])
-      expect(mail.from).to eq(["from@example.com"])
-    end
+#   describe "reset_password_email" do
+#     let(:mail) { UserMailer.reset_password_email(@user) }
 
-    it "renders the body" do
-      expect(mail.body.encoded).to match("Hi")
-    end
-  end
+#     it "renders the headers" do
+#       expect(mail.subject).to eq("Reset password email")
+#       expect(mail.to).to eq(["to@example.org"])
+#       expect(mail.from).to eq(["from@example.com"])
+#     end
 
-end
+#     it "renders the body" do
+#       expect(mail.body.encoded).to match("Hi")
+#     end
+#   end
+# end

@@ -15,22 +15,20 @@ class MessagePolicy < ApplicationPolicy
   end
 
   def show?
-    [@message.sender_user_id, @message.recipient_user_id].include?(
-      @current_user.id)
+    [@message.sender, @message.recipient].include?(
+      @current_user)
   end
 
   def destroy?
-    [@message.sender_user_id, @message.recipient.user_id].include?(
-      @current_user.id) && (@current_user.profileable_type == "AdminProfile")
+    [@message.sender, @message.recipient].include?(
+      @current_user) && @current_user.is_an_admin?
   end
 
   def edit?
-    (@current_user.id == @message.sender_user_id) &&
-      (@current_user.profileable_type == "AdminProfile")
+    (@current_user == @message.sender) && @current_user.is_an_admin?
   end
 
   def update?
-    (@current_user.id == @message.sender_user_id) &&
-      (@current_user.profileable_type == "AdminProfile")
+    (@current_user == @message.sender) && @current_user.is_an_admin?
   end
 end

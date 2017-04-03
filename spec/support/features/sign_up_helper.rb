@@ -7,6 +7,7 @@ module Features
       fill_in "Username", with: username
       fill_in "First name", with: user.first_name
       fill_in "Last name", with: user.last_name
+      fill_in "Email", with: user.email
       select(user_type.capitalize, from: "user_profileable_type")
       fill_in "Password", with: password
       fill_in "Password confirmation", with: password_confirmation
