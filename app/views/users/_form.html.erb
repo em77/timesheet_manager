@@ -31,12 +31,14 @@
     <%= f.text_field :email %>
   </div>
 
-  <div class="field form-group">
-    <%= f.label :profileable_type, "User type" %><br>
-    <%= f.select :profileable_type, options_for_select(
-      [["Employee", "EmployeeProfile"], ["Admin", "AdminProfile"]],
-      params[:profileable_type]) %>
-  </div>
+  <% unless user.children? %>
+    <div class="field form-group">
+      <%= f.label :profileable_type, "User type" %><br>
+      <%= f.select :profileable_type, options_for_select(
+        [["Employee", "EmployeeProfile"], ["Admin", "AdminProfile"]],
+        params[:profileable_type]) %>
+    </div>
+  <% end %>
 
   <div class="field form-group">
     <%= f.label :password %><br>

@@ -17,10 +17,13 @@ class UsersController < ApplicationController
     if params[:show_inactive]
       @users = User.where(active_status: :inactive)
         .order("last_name ASC, first_name ASC")
+        .includes(:received_messages, :sent_messages)
     else
       @users = User.where(active_status: :active)
         .order("last_name ASC, first_name ASC")
+        .includes(:received_messages, :sent_messages)
     end
+    preload_profileable
     authorize users
   end
 
@@ -74,6 +77,15 @@ class UsersController < ApplicationController
       flash[:success] = "#{user.full_name}'s account was made active again."
     end
     redirect_to users_path
+  end
+
+  def preload_profileable
+    ActiveRecord::Associations::Preloader.new.preload(
+      @users.select { |u| u.profileable_type == "EmployeeProfile" },
+      { profileable: :jobs })
+    ActiveRecord::Associations::Preloader.new.preload(
+      @users.select { |u| u.profileable_type == "AdminProfile" },
+      { profileable: :companies })
   end
 
   private

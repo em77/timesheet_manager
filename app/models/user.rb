@@ -15,6 +15,15 @@ class User < ApplicationRecord
   enum active_status: [:active, :inactive]
   after_initialize :set_default_active_status, if: :new_record?
 
+  def children?
+    return true if self.received_messages.any? || self.sent_messages.any?
+    if self.is_an_admin?
+      self.profileable.companies.any?
+    else
+      self.profileable.jobs.any?
+    end
+  end
+
   def set_default_active_status
     self.active_status ||= :active
   end

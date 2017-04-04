@@ -3,6 +3,10 @@ class EmployeeProfile < ApplicationRecord
   has_and_belongs_to_many :companies
   has_many :jobs
 
+  def children?
+    jobs.any?
+  end
+
   def add_company_to_self(company)
     return if self.companies.include?(company)
     self.companies << company
