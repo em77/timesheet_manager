@@ -60,6 +60,20 @@ class CompaniesController < ApplicationController
     redirect_to companies_path, notice: "Company deleted"
   end
 
+  def change_active_status
+    company = Company.find( params.require(:company_id) )
+    authorize company
+    if company.active?
+      company.inactive!
+      Job.archive_company_jobs(company.id)
+      flash[:success] = "#{company.title} was archived."
+    else
+      company.active!
+      flash[:success] = "#{company.title} was made active again."
+    end
+    redirect_to companies_path
+  end
+
   private
     def set_company
       @company = Company.find(params.require(:id))

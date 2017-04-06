@@ -34,6 +34,9 @@ Rails.application.routes.draw do
   get "/change_job_active_status" => "jobs#change_active_status",
     as: "change_job_active_status"
 
+  get "/change_company_active_status" => "companies#change_active_status",
+    as: "change_company_active_status"
+
   # post "add_user_to_company" => "users#add_user_to_company",
   #   as: "add_user_to_company"
 

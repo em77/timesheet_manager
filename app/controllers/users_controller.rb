@@ -70,7 +70,7 @@ class UsersController < ApplicationController
     authorize user
     if user.active?
       user.inactive!
-      Job.archive_jobs(user.profileable_id) unless user.is_an_admin?
+      Job.archive_employee_jobs(user.profileable_id) unless user.is_an_admin?
       flash[:success] = "#{user.full_name} was archived."
     else
       user.active!

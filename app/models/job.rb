@@ -12,8 +12,14 @@ class Job < ApplicationRecord
     pay_periods.any?
   end
 
-  def self.archive_jobs(employee_profile_id)
+  def self.archive_employee_jobs(employee_profile_id)
     Job.where("employee_profile_id = ?", employee_profile_id).each do |job|
+      job.inactive!
+    end
+  end
+
+  def self.archive_company_jobs(company_id)
+    Job.where("company_id = ?", company_id).each do |job|
       job.inactive!
     end
   end
