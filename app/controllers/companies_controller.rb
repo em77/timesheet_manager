@@ -59,7 +59,9 @@ class CompaniesController < ApplicationController
     end
 
     def set_admin_array
-      @admin_array = AdminProfile.all.collect {|a| [a.user.full_name, a.id]}
+      @admin_array = AdminProfile.all.includes(:user).collect do |a|
+        [a.user.full_name, a.id]
+      end
     end
 
     def company_params

@@ -7,6 +7,10 @@ class Job < ApplicationRecord
   enum pay_type: [:wage, :shift]
   monetize :pay_cents
 
+  def children?
+    pay_periods.any?
+  end
+
   def self.archive_jobs(employee_profile_id)
     Job.where("employee_profile_id = ?", employee_profile_id).each do |job|
       job.inactive!
