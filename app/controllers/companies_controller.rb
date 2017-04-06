@@ -9,7 +9,15 @@ class CompaniesController < ApplicationController
   helper_method :company, :companies, :admin_array
 
   def index
-    @companies = Company.all
+    if params[:show_inactive]
+      @companies = Company.where(active_status: :inactive)
+        .order("title ASC")
+        .includes(:employee_profiles)
+    else
+      @companies = Company.where(active_status: :active)
+        .order("title ASC")
+        .includes(:employee_profiles)
+    end
     authorize companies
   end
 
