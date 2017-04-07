@@ -47,3 +47,11 @@
       </div>
     </div>
 </div>
+
+<div class="center pagination_primary">
+  <% if pay_periods %>
+    <%= will_paginate pay_periods %>
+  <% else %>
+    <%= will_paginate timesheets %>
+  <% end %>
+</div>

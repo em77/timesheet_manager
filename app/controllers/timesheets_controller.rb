@@ -15,11 +15,13 @@ class TimesheetsController < ApplicationController
     job_id = params.require(:job_id)
     redirect_to root_path unless job_id || pay_period_id
     if pay_period_id
-      @pay_period = PayPeriod.find(params.require(:pay_period_id))
+      @pay_period = PayPeriod.find(pay_period_id)
       @timesheets = Timesheet.where("pay_period_id = ?", pay_period_id)
         .includes( pay_period: { job: { employee_profile: :user } } )
+        .paginate(page: params[:page])
     else
       @pay_periods = PayPeriod.where("job_id = ?", job_id)
+        .paginate(page: params[:page])
     end
     authorize Timesheet
   end
