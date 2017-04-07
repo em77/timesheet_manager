@@ -17,12 +17,14 @@ class JobsController < ApplicationController
         .joins(employee_profile: :user)
         .order("last_name ASC, first_name ASC")
         .includes(:pay_periods, employee_profile: :user)
+        .paginate(page: params[:page])
     else
       @jobs = Job.where(company_id: params.require(:company_id))
         .where(active_status: :active)
         .joins(employee_profile: :user)
         .order("last_name ASC, first_name ASC")
         .includes(:pay_periods, employee_profile: :user)
+        .paginate(page: params[:page])
     end
     authorize jobs
   end
