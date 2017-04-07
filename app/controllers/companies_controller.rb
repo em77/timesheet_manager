@@ -13,10 +13,12 @@ class CompaniesController < ApplicationController
       @companies = Company.where(active_status: :inactive)
         .order("title ASC")
         .includes(:employee_profiles)
+        .paginate(page: params[:page])
     else
       @companies = Company.where(active_status: :active)
         .order("title ASC")
         .includes(:employee_profiles)
+        .paginate(page: params[:page])
     end
     authorize companies
   end
