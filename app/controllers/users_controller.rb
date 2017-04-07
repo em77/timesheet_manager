@@ -18,10 +18,12 @@ class UsersController < ApplicationController
       @users = User.where(active_status: :inactive)
         .order("last_name ASC, first_name ASC")
         .includes(:received_messages, :sent_messages)
+        .paginate(page: params[:page])
     else
       @users = User.where(active_status: :active)
         .order("last_name ASC, first_name ASC")
         .includes(:received_messages, :sent_messages)
+        .paginate(page: params[:page])
     end
     preload_profileable
     authorize users
