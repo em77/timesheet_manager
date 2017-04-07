@@ -5,25 +5,28 @@
 <% else %>
   <% message_link_text = "Send Message to the Manager" %>
 <% end %>
-<h2>
-  <%= link_to message_link_text, new_message_path %>
-</h2>
 
-<h2>Received Messages</h2>
+<div class="outer_wrapper">
+  <div class="btn-group">
+    <%= link_to message_link_text, new_message_path, class: "btn btn-success" %>
+      
+    <% if params[:show_sent] %>
+      <%= link_to "Received Messages", messages_path,
+        class: "btn btn-primary", id: "received_messages_button",
+        method: :get %>
+    <% else %>
+      <%= link_to "Sent Messages", messages_path(show_sent: true),
+        class: "btn btn-warning", id: "sent_messages_button",
+        method: :get %>
+    <% end %>
+  </div>
+  <div class="css_table">
+    <div class="css_tbody">
+      <%= render "messages_table" %>
+    </div>
+  </div>
+</div>
 
-<% rcvd_messages.each do |message| %>
-  <%= link_to message.subject, message_path(message) %>
-  <span><%= " - #{message.created_at.strftime("%m/%d/%Y, %l:%M %p")}" %></span>
-  <% if message.unread? %>
-    <span>NEW</span>
-  <% end %>
-  <br>
-<% end %>
-
-<h2>Sent Messages</h2>
-
-<% sent_messages.each do |message| %>
-  <%= link_to message.subject, message_path(message) %>
-  <span><%= " - #{message.created_at.strftime("%m/%d/%Y, %l:%M %p")}" %></span>
-  <br>
-<% end %>
+<div class="center pagination_primary">
+  <%= will_paginate messages %>
+</div>

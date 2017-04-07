@@ -1,0 +1,13 @@
+<div class="css_cell">
+  <% if params[:show_sent] %>
+    <%= message.recipient.full_name %>
+  <% else %>
+    <%= message.sender.full_name %>
+  <% end %>
+</div>
+<div class="css_cell">
+  <%= message.created_at.strftime("%m/%d/%Y, %l:%M %p") %>
+</div>
+<div class="css_cell">
+  <%= link_to message.subject, message_path(message) %>
+</div>
