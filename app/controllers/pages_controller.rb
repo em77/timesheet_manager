@@ -23,7 +23,7 @@ class PagesController < ApplicationController
 
   def company_and_job_array_maker
     company_and_job_array = []
-    jobs = Job.where("employee_profile_id = ?", current_user.profileable_id)
+    jobs = Job.active.where(employee_profile_id: current_user.profileable_id)
       .includes(:company)
     jobs.each do |job|
       company_and_job_array << ["#{job.title} - #{job.company.title}", job.id]

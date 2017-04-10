@@ -6,7 +6,7 @@
   <%= job.employee_profile.user.full_name %>
 </h2>
 
-<% if pay_period %>
+<% if pay_period && current_user.is_an_admin? %>
   <div class="panel panel-primary" id="notes-panel">
     <div class="panel-heading">
       <h4 class="panel-title">Notes</h4>

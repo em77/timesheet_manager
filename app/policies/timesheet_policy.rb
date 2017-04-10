@@ -6,6 +6,11 @@ class TimesheetPolicy < ApplicationPolicy
     @timesheet = model
   end
 
+  def index?
+    is_an_admin? || @timesheet.pay_period.job
+      .employee_profile_id == current_user.profileable_id
+  end
+
   def new?
     create?
   end
@@ -21,11 +26,7 @@ class TimesheetPolicy < ApplicationPolicy
   end
 
   def edit?
-    if is_an_admin? || (@timesheet.clock_in && @timesheet.unapproved?)
-      return true
-    else
-      return false
-    end 
+    is_an_admin? || (@timesheet.clock_in && @timesheet.unapproved?)
   end
 
   def update?

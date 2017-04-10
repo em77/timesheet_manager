@@ -23,7 +23,7 @@ class TimesheetsController < ApplicationController
       @pay_periods = PayPeriod.where("job_id = ?", job_id)
         .paginate(page: params[:page])
     end
-    authorize Timesheet
+    authorize Timesheet.new( pay_period: PayPeriod.new(job: job) )
   end
 
   def toggle_approved

@@ -15,26 +15,8 @@
     <div class="collapse navbar-collapse" id="navbar-collapse-area">
 
       <% if logged_in? && current_user.is_an_admin? %>
-
         <ul class="nav navbar-nav navbar-left" class="navbar-buttons">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle"
-              data-toggle="dropdown" role="button"
-              aria-haspopup="true" aria-expanded="false">
-              My Companies <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-              <% current_admin_user_companies.each do |company| %>
-                <% unless company == current_admin_user_companies.first %>
-                  <li role="separator" class="divider"></li>
-                <% end %>
-                <li>
-                  <%= link_to company.title,
-                    jobs_path(company_id: company.id) %>
-                </li>
-              <% end %>
-            </ul>
-          </li>
+          <%= render "layouts/my_companies_dropdown" %>
           <%= render "layouts/navbar_messages_link" %>
         </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -42,6 +24,7 @@
         </ul>
       <% elsif logged_in? %>
         <ul class="nav navbar-nav navbar-left" class="navbar-buttons">
+          <%= render "layouts/my_jobs_dropdown" %>
           <%= render "layouts/navbar_messages_link" %>
         </ul>
         <ul class="nav navbar-nav navbar-right">

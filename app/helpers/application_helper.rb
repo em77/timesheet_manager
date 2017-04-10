@@ -8,8 +8,12 @@ module ApplicationHelper
     end
   end
 
-  def current_admin_user_companies
-    Company.where(admin_profile_id: current_user.profileable_id)
+  def current_user_companies
+    current_user.profileable.companies.active
+  end
+
+  def current_user_jobs
+    current_user.profileable.jobs.active.includes(:company)
   end
 
   def unread_message_count
