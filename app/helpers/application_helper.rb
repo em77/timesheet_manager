@@ -24,4 +24,12 @@ module ApplicationHelper
     clock_out = Time.zone.now if clock_out.nil?
     ( (clock_out - clock_in) / 3600 ).round(2)
   end
+
+  def current_user_clocked_in?
+    clocked_in = Timesheet.joins(
+      pay_period: { job: { employee_profile: :user } })
+      .where("users.id = ? AND clock_out IS ?",
+      current_user.id, nil)
+    clocked_in.empty? ? false : true
+  end
 end
