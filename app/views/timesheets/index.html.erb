@@ -31,21 +31,22 @@
       new_timesheet_path(job_id: params[:job_id]),
       class: "btn btn-success", id: "new_timesheet_button", method: :get %>
   </div>
-    <div class="css_table">
-      <div class="css_tbody">
-        <% if pay_periods %>
-          <% pay_periods.each do |pay_period| %>
-            <%= link_to ("#{pay_period.start_date.strftime("%m/%d/%Y")} - " +
-              pay_period.end_date.strftime("%m/%d/%Y")),
-            timesheets_path(
-              job_id: params[:job_id], pay_period_id: pay_period.id),
-            class: "btn btn-default btn-primary" %>
-          <% end %>
-        <% else %>
-          <%= render "timesheets_table" %>
+  <div class="css_table">
+    <div class="css_tbody">
+      <% if pay_periods %>
+        <% pay_periods.each do |pay_period| %>
+          <%= link_to ("#{pay_period.start_date.strftime("%m/%d/%Y")} - " +
+            pay_period.end_date.strftime("%m/%d/%Y")),
+          timesheets_path(
+            job_id: params[:job_id], pay_period_id: pay_period.id),
+          class: "btn btn-default btn-primary" %>
         <% end %>
-      </div>
+      <% else %>
+        <%= render "timesheets_table" %>
+        <%= render "timesheets_total" %>
+      <% end %>
     </div>
+  </div>
 </div>
 
 <div class="center pagination_primary">
