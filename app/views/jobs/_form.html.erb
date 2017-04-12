@@ -34,18 +34,21 @@
 
   <%= f.autocomplete_field :user, autocomplete_user_full_name_jobs_path,
     "data-auto-focus": true, id_element: "#the_user_id",
-    value: autocomplete_value, class: "form-control job-fields",
+    value: autocomplete_value, class: "form-control",
     id: "employee-name-job-field", required: true %>
 
   <div class="instruction-text" id="job-autocomplete-instruction">
     Select the employee's name as it appears while typing
   </div>
 
-  <%= f.text_field :pay, value: (humanized_money job.pay || params[:pay]) %>
+  <%= f.text_field :pay, value: (humanized_money job.pay || params[:pay]),
+    label_class: "top-offset-label", id: "pay-field" %>
+
   <div class="instruction-text">E.g. 11.25</div>
 
   <%= f.select :pay_type, ["wage", "shift"], label: "Pay Type",
-    selected: (job.pay_type || params[:pay_type]) %>
+    selected: (job.pay_type || params[:pay_type]),
+    label_class: "top-offset-label" %>
 
   <% unless job.children? %>
     <%= f.select :pay_freq, ["biweekly", "monthly"],
