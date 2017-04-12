@@ -19,8 +19,8 @@ class MessagePolicy < ApplicationPolicy
   end
 
   def destroy?
-    [message.sender, message.recipient].include?(current_user)
-      && current_user.is_an_admin?
+    [message.sender, message.recipient].include?(current_user) &&
+      current_user.is_an_admin?
   end
 
   def edit?

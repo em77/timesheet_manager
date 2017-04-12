@@ -16,6 +16,7 @@ class User < ApplicationRecord
   after_initialize :set_default_active_status, if: :new_record?
 
   def children?
+    return false unless self.persisted?
     return true if self.received_messages.any? || self.sent_messages.any?
     if self.is_an_admin?
       self.profileable.companies.any?
