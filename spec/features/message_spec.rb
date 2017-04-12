@@ -23,6 +23,7 @@ feature "Send message" do
     fill_in "Message", with: @message.content
     find_button("submit_message").click
     expect(page).to have_content "Message sent successfully"
+    find_link("Sent Messages").click
     find_link(@message.subject).click
     expect(page).to have_content "From: #{@admin.full_name}"
     expect(page).to have_content "To: #{@employee.full_name}"
@@ -36,6 +37,7 @@ feature "Send message" do
     fill_in "Message", with: @message2.content
     find_button("submit_message").click
     expect(page).to have_content "Message sent successfully"
+    find_link("Sent Messages").click
     find_link(@message2.subject).click
     expect(page).to have_content "From: #{@employee.full_name}"
     expect(page).to have_content "To: #{@admin.full_name}"
