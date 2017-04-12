@@ -26,7 +26,12 @@ class TimesheetPolicy < ApplicationPolicy
   end
 
   def edit?
-    is_an_admin? || (@timesheet.clock_in && @timesheet.unapproved?)
+    is_an_admin? ||
+      (
+        @timesheet.clock_in && @timesheet.unapproved? &&
+        (@timesheet.pay_period.job.employee_profile.id == current_user
+          .profileable_id)
+      )
   end
 
   def update?
