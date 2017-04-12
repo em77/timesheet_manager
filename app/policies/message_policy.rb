@@ -1,5 +1,5 @@
 class MessagePolicy < ApplicationPolicy
-  attr_reader :current_user, :model
+  attr_reader :current_user, :message
 
   def initialize(current_user, model)
     @current_user = current_user
@@ -15,20 +15,19 @@ class MessagePolicy < ApplicationPolicy
   end
 
   def show?
-    [@message.sender, @message.recipient].include?(
-      @current_user)
+    [message.sender, message.recipient].include?(current_user)
   end
 
   def destroy?
-    [@message.sender, @message.recipient].include?(
-      @current_user) && @current_user.is_an_admin?
+    [message.sender, message.recipient].include?(current_user)
+      && current_user.is_an_admin?
   end
 
   def edit?
-    (@current_user == @message.sender) && @current_user.is_an_admin?
+    update?
   end
 
   def update?
-    (@current_user == @message.sender) && @current_user.is_an_admin?
+    (current_user == message.sender) && current_user.is_an_admin?
   end
 end

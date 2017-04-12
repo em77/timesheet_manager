@@ -1,5 +1,5 @@
 class CompanyPolicy < ApplicationPolicy
-  attr_reader :current_user, :model
+  attr_reader :current_user, :company
 
   def initialize(current_user, model)
     @current_user = current_user
@@ -15,7 +15,7 @@ class CompanyPolicy < ApplicationPolicy
   end
 
   def destroy?
-    is_an_admin? && (@company.admin_profile_id == current_user.profileable_id)
+    is_an_admin? && (company.admin_profile_id == current_user.profileable_id)
   end
 
   def edit?
@@ -31,6 +31,6 @@ class CompanyPolicy < ApplicationPolicy
   end
 
   def change_active_status?
-    is_an_admin?
+    destroy?
   end
 end

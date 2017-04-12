@@ -1,5 +1,5 @@
 class JobPolicy < ApplicationPolicy
-  attr_reader :current_user, :model
+  attr_reader :current_user, :job
 
   def initialize(current_user, model)
     @current_user = current_user
@@ -16,8 +16,7 @@ class JobPolicy < ApplicationPolicy
 
   def destroy?
     is_an_admin? &&
-      (Company.find(@job.company_id).admin_profile_id ==
-        current_user.profileable_id)
+      (job.company.admin_profile_id == current_user.profileable_id)
   end
 
   def edit?
@@ -33,6 +32,6 @@ class JobPolicy < ApplicationPolicy
   end
 
   def change_active_status?
-    is_an_admin?
+    destroy?
   end
 end

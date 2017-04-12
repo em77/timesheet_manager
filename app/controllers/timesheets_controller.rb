@@ -48,15 +48,16 @@ class TimesheetsController < ApplicationController
 
   def create
     @timesheet = Timesheet.new(timesheet_params)
+    job_id = params.require(:timesheet).permit(:job_id)[:job_id]
     authorize timesheet
 
-    if @timesheet.valid?
+    if @timesheet.valid? && not_impersonating_another_employee?(job_id)
       @timesheet.save
-      job_id = params.require(:timesheet).permit(:job_id)[:job_id]
       @timesheet.add_to_pay_period(job_id)
       redirect_to(session.delete(:return_to) || root_path,
         notice: "Successfully clocked in")
     else
+      @timesheet.errors.add(:timesheet, "was not saved.")
       flash[:error] = @timesheet.errors.full_messages.to_sentence
       redirect_to(session.delete(:return_to) || root_path)
     end
@@ -78,6 +79,11 @@ class TimesheetsController < ApplicationController
     timesheet.destroy
     redirect_to(session.delete(:return_to) || root_path,
       notice: "Timesheet deleted")
+  end
+
+  def not_impersonating_another_employee?(job_id)
+    current_user.is_an_admin? ||
+      current_user.profileable.jobs.include?( Job.find(job_id) )
   end
 
   private
