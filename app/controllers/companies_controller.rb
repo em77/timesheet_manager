@@ -59,7 +59,7 @@ class CompaniesController < ApplicationController
 
   def destroy
     company.destroy
-    redirect_to companies_path, notice: "Company deleted"
+    redirect_to companies_path, notice: "#{company.title} was deleted"
   end
 
   def change_active_status
@@ -68,10 +68,10 @@ class CompaniesController < ApplicationController
     if company.active?
       company.inactive!
       Job.archive_company_jobs(company.id)
-      flash[:success] = "#{company.title} was archived."
+      flash[:success] = "#{company.title} was archived"
     else
       company.active!
-      flash[:success] = "#{company.title} was made active again."
+      flash[:success] = "#{company.title} was made active again"
     end
     redirect_to companies_path
   end
