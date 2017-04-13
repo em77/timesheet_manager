@@ -1,5 +1,7 @@
 <div class="css_cell">
-  <strong><%= link_to(company.title, company_path(company)) %></strong>
+  <strong>
+    <%= link_to(company.title, jobs_path(company_id: company.id)) %>
+  </strong>
 </div>
 <div class="css_cell">
   <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
