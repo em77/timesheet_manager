@@ -3,11 +3,11 @@ class PayPeriod < ApplicationRecord
   has_many :timesheets
 
   def self.pay_freq_to_pay_period_factory(job, clock_in)
-    return self.biweekly_pay_period_factory(job, clock_in) if job.biweekly?
-    return self.monthly_pay_period_factory(job, clock_in) if job.monthly?
+    return self.biweekly_pay_period_factory(job.id, clock_in) if job.biweekly?
+    return self.monthly_pay_period_factory(job.id, clock_in) if job.monthly?
   end
 
-  def self.biweekly_pay_period_factory(job, clock_in)
+  def self.biweekly_pay_period_factory(job_id, clock_in)
     if clock_in.day <= 15
       start_date = clock_in.to_date.beginning_of_month
       end_date = start_date + 14.days
@@ -16,14 +16,14 @@ class PayPeriod < ApplicationRecord
       end_date = clock_in.to_date.end_of_month
     end
     self.new(start_date: start_date, end_date: end_date,
-      pay_date: self.calculate_pay_date("biweekly", end_date), job_id: job.id)
+      pay_date: self.calculate_pay_date("biweekly", end_date), job_id: job_id)
   end
 
-  def self.monthly_pay_period_factory(job, clock_in)
+  def self.monthly_pay_period_factory(job_id, clock_in)
     start_date = clock_in.to_date.beginning_of_month
     end_date = clock_in.to_date.end_of_month
     self.new(start_date: start_date, end_date: end_date,
-      pay_date: self.calculate_pay_date("monthly", end_date), job_id: job.id)
+      pay_date: self.calculate_pay_date("monthly", end_date), job_id: job_id)
   end
 
   def self.calculate_pay_date(pay_freq, end_date)

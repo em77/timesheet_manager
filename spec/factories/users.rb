@@ -17,5 +17,15 @@ FactoryGirl.define do
       profileable_type "EmployeeProfile"
       password "password"
     end
+
+    trait :inactive_employee do
+      email "employee@test.com"
+      first_name "Joe"
+      last_name "Inactive Employee"
+      username "employee"
+      profileable_type "EmployeeProfile"
+      password "password"
+      active_status :inactive
+    end
   end
 end
