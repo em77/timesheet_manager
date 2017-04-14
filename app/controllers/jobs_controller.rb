@@ -98,12 +98,12 @@ class JobsController < ApplicationController
     if job.active?
       job.inactive!
       flash[:success] = "#{job.employee_profile.user.full_name}'s job" +
-      " as #{job.title} was archived."
+      " as #{job.title} was archived"
     else
       job.active!
       job.employee_profile.user.active!
       flash[:success] = "#{job.employee_profile.user.full_name}'s job" +
-      " as #{job.title} was made active again."
+      " as #{job.title} was made active again"
     end
     redirect_to jobs_path(company_id: job.company_id)
   end
