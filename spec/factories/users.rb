@@ -9,6 +9,15 @@ FactoryGirl.define do
       password "password"
     end
 
+    trait :other_admin do
+      email "admin2@test.com"
+      first_name "David"
+      last_name "Admin"
+      username "admin2"
+      profileable_type "AdminProfile"
+      password "password"
+    end
+
     trait :employee do
       email "employee@test.com"
       first_name "Joe"

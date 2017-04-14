@@ -29,6 +29,7 @@ feature "company management" do
     find_link("Reactivate Company").click
     page.driver.browser.switch_to.alert.accept
     expect(page).to have_content "#{@company.title} was made active again"
+    visit companies_path
     expect(page).to have_content @company.title
   end
 

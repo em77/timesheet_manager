@@ -31,7 +31,7 @@ class UsersController < ApplicationController
 
   def destroy
     user.destroy
-    redirect_to users_path, notice: "User deleted"
+    redirect_to users_path, notice: "#{user.full_name} was deleted"
   end
 
   def edit
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      flash[:success] = "User updated successfully"
+      flash[:success] = "#{user.full_name} updated successfully"
       redirect_to users_path
     else
       redirect_to users_path, error: "User update failed"
@@ -73,10 +73,10 @@ class UsersController < ApplicationController
     if user.active?
       user.inactive!
       Job.archive_employee_jobs(user.profileable_id) unless user.is_an_admin?
-      flash[:success] = "#{user.full_name} was archived."
+      flash[:success] = "#{user.full_name} was archived"
     else
       user.active!
-      flash[:success] = "#{user.full_name}'s account was made active again."
+      flash[:success] = "#{user.full_name}'s account was made active again"
     end
     redirect_to users_path
   end
