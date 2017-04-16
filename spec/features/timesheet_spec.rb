@@ -22,3 +22,31 @@ feature "employee clock in/out" do
     expect(page).to have_content "Timesheet updated successfully"
   end
 end
+
+feature "admin timesheet approval" do
+  before(:each) do
+    @employee = create(:user, :employee)
+    @admin = create(:user, :admin)
+    @company = create(:company)
+    @employee.profileable.add_company_to_self(@company)
+    @job = create(:job, :biweekly)
+    @pay_period = create(:pay_period)
+    @timesheet = create(:timesheet, :regular)
+    signin(@admin.username, "password")
+    sleep 1 # Wait for login and redirect to finish
+  end
+
+  scenario "admin can approve timesheet", js: true do
+    visit jobs_path(company_id: @company.id)
+    find_link("Timesheets").click
+    find_link("pay-period-#{@pay_period.id}").click
+    approval_button = find_link("status-#{@timesheet.id}")
+    expect(approval_button["class"]).to include("status_unapproved")
+    expect(@timesheet.unapproved?).to eq true
+    approval_button.click
+    sleep 1
+    expect(approval_button["class"]).not_to include("status_unapproved")
+    expect(approval_button["class"]).to include("status_approved")
+    expect(Timesheet.find(@timesheet.id).approved?).to eq true
+  end
+end
