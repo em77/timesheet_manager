@@ -1,0 +1,11 @@
+<div class="css_row">
+  <div class="css_cell css_title_cell bg-info">
+    Pay Periods
+  </div>
+</div>
+<% pay_periods.each do |pay_period| %>
+  <div class="css_row">
+    <%= render partial: "pay_period", locals: {pay_period: pay_period} %>
+  </div>
+  <hr>
+<% end %>

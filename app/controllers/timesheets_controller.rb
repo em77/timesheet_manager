@@ -21,7 +21,7 @@ class TimesheetsController < ApplicationController
         .paginate(page: params[:page])
     else
       @pay_periods = PayPeriod.where("job_id = ?", job_id)
-        .paginate(page: params[:page])
+        .order("pay_date DESC").paginate(page: params[:page])
     end
     authorize Timesheet.new( pay_period: PayPeriod.new(job: job) )
   end
