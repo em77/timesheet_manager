@@ -1,15 +1,12 @@
-require 'rails_helper'
+require "rails_helper"
 
-# Specs in this file have access to a helper object that includes
-# the PagesHelper. For example:
-#
-# describe PagesHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe PagesHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#latest_pay_period" do
+    it "should return the latest pay period for given job" do
+      job = create(:job, :biweekly)
+      create(:pay_period)
+      later_pp = create(:pay_period, :another_pay_period)
+      expect(helper.latest_pay_period(job)).to eq later_pp
+    end
+  end
 end
