@@ -24,6 +24,7 @@ FactoryGirl.define do
       last_name "Employee"
       username "employee"
       profileable_type "EmployeeProfile"
+      profileable_id 1
       password "password"
     end
 

@@ -7,5 +7,9 @@ FactoryGirl.define do
       content "Another message."
       subject "Another message for you"
     end
+
+    trait :specified_rcpt do
+      recipient_id 1
+    end
   end
 end
