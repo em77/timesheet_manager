@@ -41,6 +41,16 @@ body {
   text-align: center;
 }
 
+.panel-container {
+  text-align: center;
+  overflow: scroll;
+}
+
+.inline-panel {
+  display: inline-block;
+  min-width: 460px;
+}
+
 .instruction-text {
   display: inline;
   color: #A3A3A3;
