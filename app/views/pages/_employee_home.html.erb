@@ -3,7 +3,8 @@
 <% else %>
   <% timesheets.each do |timesheet| %>
     <%= link_to "Clock out from #{timesheet.pay_period.job.company.title}",
-      edit_timesheet_path(timesheet), class: "btn btn-danger" %>
+      edit_timesheet_path(timesheet),
+      class: "btn btn-danger clock_out_button" %>
   <% end %>
 <% end %>
 

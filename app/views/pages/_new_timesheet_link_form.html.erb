@@ -2,5 +2,5 @@
   Select your job title and company to proceed to Clock In form.
   <%= select_tag "job_id", options_for_select(company_and_job_array,
     params[:job_id]), label: "Company & Job", class: "form-control" %>
-  <%= submit_tag "Clock in", class: "btn btn-default btn-success" %>
+  <%= submit_tag "Clock In", class: "btn btn-default btn-success" %>
 <% end %>
