@@ -6,12 +6,16 @@
       <h3 class="panel-title"><%= company.title %> Jobs</h3>
     </div>
 
-    <div id="new-job-button-wrapper">
-      <div class="btn-group">
-        <%= link_to "New Job", new_job_path(company_id: params[:company_id]),
-          class: "btn btn-success",
-          id: "new_job_button", method: :get %>
+    <div id="new-archived-job-buttons-wrapper">
+      <div id="new-job-button-wrapper">
+        <div class="btn-group">
+          <%= link_to "New Job", new_job_path(company_id: params[:company_id]),
+            class: "btn btn-success",
+            id: "new_job_button", method: :get %>
+        </div>
+      </div>
 
+      <div id="archived-jobs-button">
         <% if params[:show_inactive] %>
           <%= link_to "Show Active Jobs",
             jobs_path(company_id: params[:company_id]),
@@ -25,6 +29,8 @@
         <% end %>
       </div>
     </div>
+    <br>
+
     <div class="css_table" id="jobs-table">
       <div class="css_tbody">
         <% jobs.each do |job| %>

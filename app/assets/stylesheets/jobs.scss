@@ -10,12 +10,17 @@
   text-align: center;
 }
 
-#new-job-button-wrapper {
+#new-archived-job-buttons-wrapper {
   margin-top: 0.5em;
   margin-left: 0.75em;
-  text-align: left;
+  margin-right: 0.75em;
+  margin-bottom: 3em;
 }
 
-#jobs-table {
-  margin-top: 1.5em;
+#new-job-button-wrapper {
+  float: left;
+}
+
+#archived-jobs-button {
+  float: right;
 }
