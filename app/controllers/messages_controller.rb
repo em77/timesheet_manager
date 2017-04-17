@@ -7,20 +7,17 @@ class MessagesController < ApplicationController
 
   autocomplete :user, :full_name, full: true
 
-  attr_accessor :message, :messages, :companies_array
-  helper_method :message, :messages, :companies_array
+  attr_accessor :message, :sent_messages, :rcvd_messages, :companies_array
+  helper_method :message, :sent_messages, :rcvd_messages, :companies_array
 
   def index
-    if params[:show_sent]
-      @messages = current_user.sent_messages
-        .order("updated_at asc")
-        .paginate(page: params[:page], per_page: 10)
-    else
-      @messages = current_user.received_messages
-        .order("updated_at asc")
-        .paginate(page: params[:page], per_page: 10)
-    end
-    authorize messages
+    @sent_messages = current_user.sent_messages
+      .order("updated_at asc")
+      .paginate(page: params[:page], per_page: 10)
+    @rcvd_messages = current_user.received_messages
+      .order("updated_at asc")
+      .paginate(page: params[:page], per_page: 10)
+    authorize sent_messages
   end
 
   def new

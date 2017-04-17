@@ -1,11 +1,13 @@
-<%= render "messages_table_header" %>
+<%= render partial: "messages_table_header", locals: {show_sent: show_sent,
+  message: message} %>
 <% messages.each do |message| %>
-  <% if message.unread? %>
+  <% if message.unread? && !show_sent %>
     <div class="css_row alert-danger">
   <% else %>
     <div class="css_row">
   <% end %>
-    <%= render message %>
+    <%= render partial: "message", locals: {show_sent: show_sent,
+      message: message} %>
   </div>
   <hr>
 <% end %>

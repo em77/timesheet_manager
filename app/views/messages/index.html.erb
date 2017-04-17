@@ -6,27 +6,52 @@
   <% message_link_text = "Send Message to the Manager" %>
 <% end %>
 
-<div class="outer_wrapper">
-  <div class="btn-group">
-    <%= link_to message_link_text, new_message_path, class: "btn btn-success" %>
-      
-    <% if params[:show_sent] %>
-      <%= link_to "Received Messages", messages_path,
-        class: "btn btn-primary", id: "received_messages_button",
-        method: :get %>
-    <% else %>
-      <%= link_to "Sent Messages", messages_path(show_sent: true),
-        class: "btn btn-warning", id: "sent_messages_button",
-        method: :get %>
-    <% end %>
-  </div>
-  <div class="css_table">
-    <div class="css_tbody">
-      <%= render "messages_table" %>
+<div id="messages_wrapper">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div id="new-message-button-wrapper">
+        <div class="btn-group">
+          <%= link_to message_link_text, new_message_path, class: "btn btn-success" %>
+        </div>
+      </div>
+      <br>
+      <div id="messages-tabs-container">
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a data-toggle="tab" href="#rcvd-tab">Received Messages</a>
+          </li>
+          <li>
+            <a data-toggle="tab" href="#sent-tab">Sent Messages</a>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+          <div id="rcvd-tab" class="tab-pane fade in active">
+            <div class="css_table">
+              <div class="css_tbody">
+                <%= render partial: "messages_table",
+                  locals: {messages: rcvd_messages, show_sent: false} %>
+              </div>
+
+              <div class="center pagination_primary">
+                <%= will_paginate rcvd_messages %>
+              </div>
+            </div>
+          </div>
+          <div id="sent-tab" class="tab-pane fade">
+            <div class="css_table">
+              <div class="css_tbody">
+                <%= render partial: "messages_table",
+                  locals: {messages: sent_messages, show_sent: true} %>
+              </div>
+
+              <div class="center pagination_primary">
+                <%= will_paginate sent_messages %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-
-<div class="center pagination_primary">
-  <%= will_paginate messages %>
 </div>
