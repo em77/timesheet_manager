@@ -1,26 +1,47 @@
 <% provide(:title, "View Message") %>
 
-<% message.read! if current_user == message.recipient %>
+<div id="message_wrapper">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div id="message-container">
+        <% message.read! if current_user == message.recipient %>
 
-<h2>
-  <%= message.subject %>
-</h2>
+        <h5>
+          <span class="label label-info">From:</span>
+          <%= message.sender.full_name %>
+        </h5>
 
-<h3>
-  From: <%= message.sender.full_name %>
-</h3>
+        <h5>
+          <span class="label label-info">To:</span>
+          <%= message.recipient.full_name %>
+        </h5>
 
-<h3>
-  To: <%= message.recipient.full_name %>
-</h3>
+        <h5>
+          <span class="label label-info">Subject:</span>
+          <%= message.subject %>
+        </h5>
 
-<h5>
-  <%= message.content %>
-</h5>
+        <h4 id="message-content">
+          <%= message.content %>
+        </h4>
 
-<% if current_user == message.recipient %>
-  <h2>
-    <%= link_to "Reply",
-      new_message_path(recipient_id: message.sender_id) %>
-  </h2>
-<% end %>
+        <div id="message-show-buttons-container">
+          <div id="messages-return-button-container">
+            <%= link_to messages_path, class: "btn btn-primary" do %>
+              <span class="glyphicon glyphicon-arrow-left"></span>
+              Return to Messages
+            <% end %>
+          </div>
+
+          <% if current_user == message.recipient %>
+            <div id="message-reply-button-container">
+              <%= link_to "Reply",
+                new_message_path(recipient_id: message.sender_id),
+                class: "btn btn-success" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
