@@ -1,10 +1,16 @@
 <% provide(:title, "Timesheets") %>
 
-<h2>
-  Timesheets -
-  <%= job.title %> -
-  <%= job.employee_profile.user.full_name %>
-</h2>
+<div id="timesheets-header-container">
+  <div class="page-header">
+    <h2>
+      <%= job.company.title %>
+      <small>
+        <%= job.title %>
+        (<%= job.employee_profile.user.full_name %>)
+      </small>
+    </h2>
+  </div>
+</div>
 
 <% if pay_period && current_user.is_an_admin? %>
   <div class="panel panel-primary" id="notes-panel">
@@ -30,7 +36,9 @@
     <% panel_title_text = "Pay Periods" %>
     <div class="panel panel-primary" id="pay-periods-panel">
   <% else %>
-    <% panel_title_text = "Timesheets" %>
+    <% panel_title_text = "Timesheets (" +
+      "#{pay_period.start_date.strftime("%m/%d/%Y")} -" +
+      " #{pay_period.end_date.strftime("%m/%d/%Y")})" %>
     <div class="panel panel-primary inline-panel" id="timesheets-panel">
   <% end %>
     <div class="panel-heading">

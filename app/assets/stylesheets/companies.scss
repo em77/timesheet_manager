@@ -1,3 +1,18 @@
-// Place all the styles related to the Companies controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#companies-wrapper {
+  text-align: center;
+}
+
+#new-archived-companies-buttons-wrapper {
+  margin-top: 0.5em;
+  margin-left: 0.75em;
+  margin-right: 0.75em;
+  margin-bottom: 3.5em;
+}
+
+#new-company-button-wrapper {
+  float: left;
+}
+
+#archived-companies-button {
+  float: right;
+}

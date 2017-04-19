@@ -1,23 +1,33 @@
 <% provide(:title, "Companies") %>
 
-<h2>Companies</h2>
+<div id="companies-wrapper">
+  <div class="panel panel-primary inline-panel">
+    <div class="panel-heading">
+      <h3 class="panel-title">Companies</h3>
+    </div>
 
-<div class="outer_wrapper">
-  <div class="btn-group">
-    <%= link_to "New Company", new_company_path, class: "btn btn-success",
-      id: "new_company_button", method: :get %>
+    <div id="new-archived-companies-buttons-wrapper">
+      <div id="new-company-button-wrapper">
+        <%= link_to "New Company", new_company_path, class: "btn btn-success",
+          id: "new_company_button", method: :get %>
+      </div>
 
-    <% if params[:show_inactive] %>
-      <%= link_to "Show Active Companies", companies_path,
-        class: "btn btn-primary", id: "show_active_companies_button",
-        method: :get %>
-    <% else %>
-      <%= link_to "Show Archived Companies",
-        companies_path(show_inactive: true), class: "btn btn-warning",
-        id: "show_inactive_companies_button", method: :get %>
-    <% end %>
-  </div>
-    <div class="css_table">
+      <div id="archived-companies-button">
+        <% if params[:show_inactive] %>
+          <%= link_to "Show Active Companies", companies_path,
+            class: "btn btn-primary", id: "show_active_companies_button",
+            method: :get %>
+        <% else %>
+          <%= link_to "Show Archived Companies",
+            companies_path(show_inactive: true), class: "btn btn-warning",
+            id: "show_inactive_companies_button", method: :get %>
+        <% end %>
+      </div>
+    </div>
+
+    <hr class="horizontal-line" />
+
+    <div class="css_table" id="companies-table">
       <div class="css_tbody">
         <% companies.each do |company| %>
           <div class="css_row">
@@ -27,8 +37,8 @@
         <% end %>
       </div>
     </div>
-</div>
-
-<div class="center pagination_primary">
-  <%= will_paginate companies %>
+    <div class="center pagination_primary">
+      <%= will_paginate companies %>
+    </div>
+  </div>
 </div>
