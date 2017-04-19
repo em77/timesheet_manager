@@ -25,30 +25,48 @@
   </div>
 <% end %>
 
-<div class="outer_wrapper">
-  <% if current_user.is_an_admin? || !current_user_clocked_in? %>
-    <div class="btn-group">
-      <%= link_to "New Timesheet",
-        new_timesheet_path(job_id: params[:job_id]),
-        class: "btn btn-success", id: "new_timesheet_button", method: :get %>
-    </div>
+<div id="timesheets-pay-periods-container">
+  <% if pay_periods %>
+    <% panel_title_text = "Pay Periods" %>
+    <div class="panel panel-primary" id="pay-periods-panel">
+  <% else %>
+    <% panel_title_text = "Timesheets" %>
+    <div class="panel panel-primary inline-panel" id="timesheets-panel">
   <% end %>
-  <div class="css_table">
-    <div class="css_tbody">
+    <div class="panel-heading">
+      <h3 class="panel-title"><%= panel_title_text %></h3>
+    </div>
+    <% if current_user.is_an_admin? || !current_user_clocked_in? %>
+      <div id="new-timesheet-button-container">
+        <div class="btn-group">
+          <%= link_to "New Timesheet",
+            new_timesheet_path(job_id: params[:job_id]),
+            class: "btn btn-success", id: "new_timesheet_button", method: :get %>
+        </div>
+      </div>
+    <% end %>
+    <div id="timesheets-pay-periods-table-container">
       <% if pay_periods %>
-        <%= render "pay_periods_table" %>
+        <div class="css_table" id="pay-periods-table-main">
       <% else %>
-        <%= render "timesheets_table" %>
-        <%= render "timesheets_total" %>
+        <div class="css_table">
       <% end %>
+          <div class="css_tbody">
+            <% if pay_periods %>
+              <%= render "pay_periods_table" %>
+            <% else %>
+              <%= render "timesheets_table" %>
+              <%= render "timesheets_total" %>
+            <% end %>
+          </div>
+          <div class="center pagination_primary">
+            <% if pay_periods %>
+              <%= will_paginate pay_periods %>
+            <% else %>
+              <%= will_paginate timesheets %>
+            <% end %>
+          </div>
+        </div>
     </div>
   </div>
-</div>
-
-<div class="center pagination_primary">
-  <% if pay_periods %>
-    <%= will_paginate pay_periods %>
-  <% else %>
-    <%= will_paginate timesheets %>
-  <% end %>
 </div>
