@@ -49,4 +49,16 @@ feature "admin timesheet approval" do
     expect(approval_button["class"]).to include("status_approved")
     expect(Timesheet.find(@timesheet.id).approved?).to eq true
   end
+
+  scenario "admin can add notes to pay_period", js: true do
+    visit jobs_path(company_id: @company.id)
+    find_link("Timesheets").click
+    find_link("pay-period-#{@pay_period.id}").click
+    find_button("edit-notes-toggler").click
+    sleep 1.5
+    fill_in "pay_period_notes", with: "Hello World!"
+    find_button("submit_pay_period_notes").click
+    expect(page).to have_content "Notes successfully added to pay period"
+    expect(page).to have_content "Hello World!"
+  end
 end
