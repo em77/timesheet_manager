@@ -24,11 +24,6 @@
   margin: 0.5%;
 }
 
-#notes-panel {
-  margin-right: 7%;
-  margin-left: 7%;
-}
-
 #new-timesheet-button-container {
   text-align: left;
   margin-top: 1em;
@@ -56,4 +51,11 @@
 
 #timesheets-header-container {
   text-align: center;
+}
+
+#notes-panel {
+  width: 807px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2%;
 }

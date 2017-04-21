@@ -13,19 +13,21 @@
 </div>
 
 <% if pay_period && current_user.is_an_admin? %>
-  <div class="panel panel-primary" id="notes-panel">
-    <div class="panel-heading">
-      <h4 class="panel-title">Notes</h4>
-    </div>
-    <div class="panel-content">
-      <h4 id="notes-content"><%= pay_period.notes if pay_period.notes %></h4>
-      <button class="btn btn-default" id="edit-notes-toggler" type="button">
-        Edit Notes
-        <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true">
-        </span>
-      </button>
-      <div id="pay-period-notes-form-wrapper">
-        <%= render "pay_periods/pay_period_notes_form" %>
+  <div id="timesheets-notes-container">
+    <div class="panel panel-primary" id="notes-panel">
+      <div class="panel-heading">
+        <h4 class="panel-title">Notes</h4>
+      </div>
+      <div class="panel-content">
+        <h4 id="notes-content"><%= pay_period.notes if pay_period.notes %></h4>
+        <button class="btn btn-default" id="edit-notes-toggler" type="button">
+          Edit Notes
+          <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true">
+          </span>
+        </button>
+        <div id="pay-period-notes-form-wrapper">
+          <%= render "pay_periods/pay_period_notes_form" %>
+        </div>
       </div>
     </div>
   </div>
