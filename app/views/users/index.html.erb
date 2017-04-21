@@ -1,32 +1,44 @@
 <% provide(:title, "User Management") %>
 
-<div class="outer_wrapper">
-  <div class="btn-group">
-    <%= link_to "New User", new_user_path, class: "btn btn-success",
-      id: "new_user_button", method: :get %>
-      
-    <% if params[:show_inactive] %>
-      <%= link_to "Show Active Users", users_path,
-        class: "btn btn-primary", id: "show_active_users_button",
-        method: :get %>
-    <% else %>
-      <%= link_to "Show Archived Users", users_path(show_inactive: true),
-        class: "btn btn-warning", id: "show_inactive_users_button",
-        method: :get %>
-    <% end %>
-  </div>
-    <div class="css_table">
+<div id="users-wrapper">
+  <div class="panel panel-primary inline-panel">
+    <div class="panel-heading">
+      <h3 class="panel-title">Users</h3>
+    </div>
+
+    <div id="new-archived-users-buttons-wrapper">
+      <div id="new-user-button-wrapper">
+        <%= link_to "New User", new_user_path, class: "btn btn-success",
+          id: "new_user_button", method: :get %>
+      </div>
+
+      <div id="archived-users-button">
+        <% if params[:show_inactive] %>
+          <%= link_to "Show Active Users", users_path,
+            class: "btn btn-primary", id: "show_active_users_button",
+            method: :get %>
+        <% else %>
+          <%= link_to "Show Archived Users",
+            users_path(show_inactive: true), class: "btn btn-warning",
+            id: "show_inactive_users_button", method: :get %>
+        <% end %>
+      </div>
+    </div>
+
+    <hr class="horizontal-line" />
+
+    <div class="css_table" id="users-table">
       <div class="css_tbody">
         <% users.each do |user| %>
-          <div class="css_row" id=<%= "#{user.username}-row" %>>
+          <div class="css_row">
             <%= render user %>
           </div>
           <hr>
         <% end %>
       </div>
     </div>
-</div>
-
-<div class="center pagination_primary">
-  <%= will_paginate users %>
+    <div class="center pagination_primary">
+      <%= will_paginate users %>
+    </div>
+  </div>
 </div>
