@@ -54,6 +54,9 @@ gem 'money-rails'
 # Pagination
 gem 'will_paginate', '~> 3.1.0'
 
+# For next/previous record
+gem 'order_query'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

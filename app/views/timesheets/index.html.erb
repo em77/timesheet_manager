@@ -12,6 +12,30 @@
   </div>
 </div>
 
+<% if pay_period && pay_periods_query.count >= 2 %>
+  <div id="next_previous_buttons">
+    <div id="previous_button">
+      <%= link_to timesheets_path(job_id: params[:job_id],
+        pay_period_id: pay_periods_query.previous[:id]),
+        class: "btn btn-primary" do %>
+        <span class="glyphicon glyphicon-arrow-left"></span>
+        <%= pay_periods_query.previous[:start_date] %> -
+        <%= pay_periods_query.previous[:end_date] %>
+      <% end %>
+    </div>
+
+    <div id="next_button">
+      <%= link_to timesheets_path(job_id: params[:job_id],
+        pay_period_id: pay_periods_query.next[:id]),
+        class: "btn btn-primary" do %>
+        <span class="glyphicon glyphicon-arrow-right"></span>
+        <%= pay_periods_query.next[:start_date] %> -
+        <%= pay_periods_query.next[:end_date] %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
 <% if pay_period && current_user.is_an_admin? %>
   <div id="timesheets-notes-container">
     <div class="panel panel-primary" id="notes-panel">

@@ -140,6 +140,9 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
+    order_query (0.3.3)
+      activerecord (>= 4.0, < 6.0)
+      activesupport (>= 4.0, < 6.0)
     pg (0.20.0)
     public_suffix (2.0.5)
     puma (3.8.2)
@@ -281,6 +284,7 @@ DEPENDENCIES
   listen (~> 3.0.5)
   momentjs-rails (>= 2.9.0)
   money-rails
+  order_query
   pg (~> 0.18)
   puma (~> 3.0)
   pundit

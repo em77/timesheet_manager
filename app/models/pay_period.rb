@@ -1,6 +1,9 @@
 class PayPeriod < ApplicationRecord
   belongs_to :job
   has_many :timesheets
+  include OrderQuery
+  order_query :order_home,
+    [:start_date, :desc]
 
   def self.pay_freq_to_pay_period_factory(job, clock_in)
     return self.biweekly_pay_period_factory(job.id, clock_in) if job.biweekly?

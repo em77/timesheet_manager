@@ -5,9 +5,9 @@ class TimesheetsController < ApplicationController
   after_action :verify_authorized
 
   attr_accessor :timesheet, :timesheets, :pay_period, :pay_periods, :css_id,
-    :job
+    :job, :pay_periods_query
   helper_method :timesheet, :timesheets, :pay_period, :pay_periods, :css_id,
-    :job
+    :job, :pay_periods_query
 
   def index
     @job = Job.find(params.require(:job_id))
@@ -19,6 +19,8 @@ class TimesheetsController < ApplicationController
       @timesheets = Timesheet.where("pay_period_id = ?", pay_period_id)
         .includes( pay_period: { job: { employee_profile: :user } } )
         .paginate(page: params[:page])
+      @pay_periods_query = PayPeriod.where("job_id = ?", job_id).order_home_at(
+        PayPeriod.find(pay_period_id) )
     else
       @pay_periods = PayPeriod.where("job_id = ?", job_id)
         .order("pay_date DESC").paginate(page: params[:page])
