@@ -1,15 +1,22 @@
-<% jobs.each do |job| %>
-  <% next if job.pay_periods.empty? %>
-  <% latest_pp = latest_pay_period(job) %>
-  <% next if latest_pp.pay_date < Time.zone.now.to_date %>
-  <p>
-    Next pay date for <%= job.title %> job at <%= job.company.title %>:
-    <span class="important-text">
-      <%= latest_pp.pay_date.strftime("%A, %b %d, %Y") %>
-    </span>
-  </p>
-  <p class="instruction-text">
-    Pay period beginning <%= latest_pp.start_date %> and ending
-    <%= latest_pp.end_date %>.
-  </p>
-<% end %>
+<div class="panel panel-primary" id="pay-dates-panel">
+  <div class="panel-heading">
+    <h3 class="panel-title">Upcoming Pay Dates</h3>
+  </div>
+
+  <div class="panel-body">
+    <% jobs.each do |job| %>
+      <% next if job.pay_periods.empty? %>
+      <% latest_pp = latest_pay_period(job) %>
+      <% next if latest_pp.pay_date < Time.zone.now.to_date %>
+      <h3>
+        <%= job.company.title %>
+        <small>
+          <%= job.title %>
+        </small>
+        <span class="pay-date-text">
+          <%= latest_pp.pay_date.strftime("%A, %b %d, %Y") %>
+        </span>
+      </h3>
+    <% end %>
+  </div>
+</div>

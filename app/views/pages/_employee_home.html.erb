@@ -1,11 +1,28 @@
-<% if timesheets.empty? && !current_user.profileable.companies.empty? %>
-  <%= render "new_timesheet_link_form" %>
-<% else %>
-  <% timesheets.each do |timesheet| %>
-    <%= link_to "Clock out from #{timesheet.pay_period.job.company.title}",
-      edit_timesheet_path(timesheet),
-      class: "btn btn-danger clock_out_button" %>
+<div id="employee-home-container">
+  <% if timesheets.empty? && !current_user.profileable.companies.empty? %>
+    <%= render "new_timesheet_link_form" %>
+  <% else %>
+    <% timesheets.each do |timesheet| %>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="clock-out-header">
+            <h3>
+              <%= timesheet.pay_period.job.company.title %>
+              <small>
+                <%= timesheet.pay_period.job.title %>
+              </small>
+            </h3>
+          </div>
+          <%= link_to "Clock out from" +
+            " #{timesheet.pay_period.job.company.title}",
+            edit_timesheet_path(timesheet),
+            class: "btn btn-danger clock_out_button" %>
+        </div>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
 
-<%= render "next_pay_dates" %>
+  <div class="next-pay-dates-container">
+    <%= render "next_pay_dates" %>
+  </div>
+</div>

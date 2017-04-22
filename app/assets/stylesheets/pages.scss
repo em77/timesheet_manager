@@ -1,3 +1,24 @@
-// Place all the styles related to the Pages controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.next-pay-dates-container {
+  margin-top: 5px;
+}
+
+#employee-home-container {
+  margin-left: 1%;
+  text-align: center;
+}
+
+.panel-body div h3 {
+  margin-top: 0;
+}
+
+.pay-date-text {
+  font-size: 70%;
+  background-color: #E3E3E3;
+  margin-left: 1.75%;
+}
+
+#pay-dates-panel {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
