@@ -19,6 +19,7 @@
         pay_period_id: pay_periods_query.previous[:id]),
         class: "btn btn-primary" do %>
         <span class="glyphicon glyphicon-arrow-left"></span>
+        &nbsp;
         <%= pay_periods_query.previous[:start_date] %> -
         <%= pay_periods_query.previous[:end_date] %>
       <% end %>
@@ -28,9 +29,10 @@
       <%= link_to timesheets_path(job_id: params[:job_id],
         pay_period_id: pay_periods_query.next[:id]),
         class: "btn btn-primary" do %>
-        <span class="glyphicon glyphicon-arrow-right"></span>
         <%= pay_periods_query.next[:start_date] %> -
         <%= pay_periods_query.next[:end_date] %>
+        &nbsp;
+        <span class="glyphicon glyphicon-arrow-right"></span>
       <% end %>
     </div>
   </div>
