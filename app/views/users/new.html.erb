@@ -1,11 +1,19 @@
 <% provide(:title, "Sign Up") %>
 
-<h1>Sign up</h1>
+<div class="form_wrapper user-form-panel">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h4>
+        Sign Up
+      </h4>
+    </div>
+    <div class="panel-body">
+      <%= render "form" %>
 
-<%= render 'form' %>
-
-<br>
-
-<%= link_to users_path, class: "btn btn-primary back-button" do %>
-  <span class="glyphicon glyphicon-chevron-left"></span> Back to Users
-<% end %>
+      <br>
+      <%= link_to users_path, class: "btn btn-primary back-button" do %>
+        <span class="glyphicon glyphicon-chevron-left"></span> Back to Users
+      <% end %>
+    </div>
+  </div>
+</div>
