@@ -1,6 +1,21 @@
-<%= bootstrap_form_tag(url: new_timesheet_path, method: :get) do %>
-  Select your job title and company to proceed to Clock In form.
-  <%= select_tag "job_id", options_for_select(company_and_job_array,
-    params[:job_id]), label: "Company & Job", class: "form-control" %>
-  <%= submit_tag "Clock In", class: "btn btn-default btn-success" %>
-<% end %>
+<div class="panel panel-primary" id="clock-in-panel">
+  <div class="panel-heading">
+    <h3 class="panel-title">Clock In</h3>
+  </div>
+
+  <div class="panel-body">
+    <div id="new-timesheet-link-container">
+      <p class="instruction-text" id="new-timesheet-link-instructions">
+        Select your job title and click on "Clock In"
+      </p>
+      <div id="new-timesheet-link-form">
+        <%= bootstrap_form_tag(url: new_timesheet_path,
+          layout: :inline, method: :get) do %>
+          <%= select_tag "job_id", options_for_select(company_and_job_array,
+            params[:job_id]), label: "Company & Job", class: "form-control" %>
+          <%= submit_tag "Clock In", class: "btn btn-default btn-success" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

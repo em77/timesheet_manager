@@ -5,18 +5,16 @@
 
   <div class="panel-body">
     <% jobs.each do |job| %>
-      <% next if job.pay_periods.empty? %>
-      <% latest_pp = latest_pay_period(job) %>
-      <% next if latest_pp.pay_date < Time.zone.now.to_date %>
-      <h3>
-        <%= job.company.title %>
-        <small>
-          <%= job.title %>
-        </small>
-        <span class="pay-date-text">
-          <%= latest_pp.pay_date.strftime("%A, %b %d, %Y") %>
-        </span>
-      </h3>
+      <% if job.pay_periods.empty? %>
+        <%= upcoming_pay_date_header(job.company.title, job.title, false) %>
+        <% next %>
+      <% elsif ( latest_pp = latest_pay_period(job) ).pay_date < Time.zone.now
+        .to_date %>
+        <%= upcoming_pay_date_header(job.company.title, job.title, false) %>
+      <% else %>
+        <%= upcoming_pay_date_header(job.company.title, job.title, true,
+          latest_pp.pay_date) %>
+      <% end %>
     <% end %>
   </div>
 </div>
