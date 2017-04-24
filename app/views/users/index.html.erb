@@ -30,7 +30,7 @@
     <div class="css_table" id="users-table">
       <div class="css_tbody">
         <% users.each do |user| %>
-          <div class="css_row">
+          <div class="css_row" id="<%= user.username %>-row">
             <%= render user %>
           </div>
           <hr>

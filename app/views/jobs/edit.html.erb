@@ -1,12 +1,20 @@
 <% provide(:title, "Edit Job") %>
 
-<h1>Edit Job</h1>
+<div class="form_wrapper job-form-panel">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h4>
+        Edit Job
+      </h4>
+    </div>
+    <div class="panel-body">
+      <%= render "form" %>
 
-<%= render "form" %>
-
-<br>
-
-<%= link_to jobs_path(company_id: job.company_id),
-  class: "btn btn-primary back-button" do %>
-  <span class="glyphicon glyphicon-chevron-left"></span> Back to Jobs
-<% end %>
+      <br>
+      <%= link_to jobs_path(company_id: job.company_id),
+        class: "btn btn-primary back-button" do %>
+        <span class="glyphicon glyphicon-chevron-left"></span> Back to Jobs
+      <% end %>
+    </div>
+  </div>
+</div>

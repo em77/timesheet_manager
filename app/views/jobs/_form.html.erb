@@ -15,7 +15,8 @@
     </div>
   <% end %>
 
-  <%= f.text_field :title, value: (job.title || params[:title]) %>
+  <%= f.text_field :title, value: (job.title || params[:title]),
+    class: "job-fields", required: true %>
 
   <% if params[:user_id] %>
     <% autocomplete_value = User.find(params[:user_id]).full_name %>
@@ -34,7 +35,7 @@
 
   <%= f.autocomplete_field :user, autocomplete_user_full_name_jobs_path,
     "data-auto-focus": true, id_element: "#the_user_id",
-    value: autocomplete_value, class: "form-control",
+    value: autocomplete_value, class: "form-control job-fields",
     id: "employee-name-job-field", required: true %>
 
   <div class="instruction-text" id="job-autocomplete-instruction">
@@ -42,17 +43,18 @@
   </div>
 
   <%= f.text_field :pay, value: (humanized_money job.pay || params[:pay]),
-    label_class: "top-offset-label", id: "pay-field" %>
+    label_class: "top-offset-label", id: "pay-field", class: "job-fields" %>
 
   <div class="instruction-text">E.g. 11.25</div>
 
   <%= f.select :pay_type, ["wage", "shift"], label: "Pay Type",
     selected: (job.pay_type || params[:pay_type]),
-    label_class: "top-offset-label" %>
+    label_class: "top-offset-label", class: "job-fields" %>
 
   <% unless job.children? %>
     <%= f.select :pay_freq, ["biweekly", "monthly"],
-      selected: (job.pay_freq || params[:pay_freq]), label: "Pay Frequency" %>
+      selected: (job.pay_freq || params[:pay_freq]), label: "Pay Frequency",
+      class: "job-fields" %>
   <% end %>
 
   <%= f.hidden_field :company_id,

@@ -15,10 +15,11 @@
     </div>
   <% end %>
 
-  <%= f.text_field :title %>
+  <%= f.text_field :title, class: "company-fields", required: true %>
 
   <%= f.select :admin_profile_id, options_for_select(admin_array,
-    params[:admin_profile_id]), label: "Administrator name" %>
+    params[:admin_profile_id]), label: "Administrator name",
+    class: "company-fields" %>
 
   <div class="instruction-text">
     Select the name of the person to be the Administrator of this company.
