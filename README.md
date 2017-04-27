@@ -1,24 +1,8 @@
-# README
+## Fountain House Timesheet Manager
+#### Web app created for the [Fountain House](http://www.fountainhouse.org) organization's Employment Department for managing multiple companies, employees and jobs within those companies, creating/approving timesheets for those jobs.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Each job has its own individual pay period to meet the needs of differing pay periods and pay dates across different jobs, even within the same company, and adjustment of pay dates depending on intersection with holidays or non-work days.
 
-Things you may want to cover:
+A messaging system allows employees to send messages to the administrator of a company they are employed by and administrators to send messages to their employees.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+![erd](erd.png)
