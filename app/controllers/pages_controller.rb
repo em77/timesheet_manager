@@ -3,6 +3,10 @@ class PagesController < ApplicationController
   helper_method :timesheets, :company_and_job_array, :jobs
 
   def home
+    if logged_in? && current_user.unread_message_count > 0
+      flash[:error] = "You have unread messages"
+    end
+
     if logged_in? && current_user.is_an_admin?
       @timesheets = Timesheet.joins(
         pay_period: { job: :company })

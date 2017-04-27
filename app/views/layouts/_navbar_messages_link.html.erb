@@ -1,8 +1,10 @@
 <li>
   <%= link_to messages_path do %>
     Messages
-    <% if unread_message_count > 0 %>
-      <span class="badge progress-bar-danger"><%= unread_message_count %></span>
+    <% if current_user.unread_message_count > 0 %>
+      <span class="badge progress-bar-danger">
+        <%= current_user.unread_message_count %>
+      </span>
     <% end %>
   <% end %>
 </li>

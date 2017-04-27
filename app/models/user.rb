@@ -57,4 +57,8 @@ class User < ApplicationRecord
     original_user_record.profileable_type.constantize
       .find(original_user_record.profileable_id).destroy
   end
+
+  def unread_message_count
+    self.received_messages.where(read_status: :unread).size
+  end
 end

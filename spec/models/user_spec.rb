@@ -49,4 +49,21 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe "#unread_message_count" do
+    let(:user) { create(:user, :employee) }
+
+    context "current_user has 1 message" do
+      it "should return 1" do
+        create(:message, :specified_rcpt)
+        expect(user.unread_message_count).to eq 1
+      end
+    end
+
+    context "current_user has no messages" do
+      it "should return 0" do
+        expect(user.unread_message_count).to eq 0
+      end
+    end
+  end
 end

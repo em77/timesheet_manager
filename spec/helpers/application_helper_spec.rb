@@ -31,26 +31,6 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
   end
 
-  describe "#unread_message_count" do
-    before(:each) do
-      user = create(:user, :employee)
-      allow(helper).to receive(:current_user).and_return(user)
-    end
-
-    context "current_user has 1 message" do
-      it "should return 1" do
-        create(:message, :specified_rcpt)
-        expect(helper.unread_message_count).to eq 1
-      end
-    end
-
-    context "current_user has no messages" do
-      it "should return 0" do
-        expect(helper.unread_message_count).to eq 0
-      end
-    end
-  end
-
   describe "#current_user_jobs" do
     context "current_user has an active and inactive job" do
       it "should only contain active job in returned collection" do
