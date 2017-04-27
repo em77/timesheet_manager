@@ -22,3 +22,20 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+#home-body {
+  background: url("https://s3.amazonaws.com/fountainhouse-bucket/ny-street.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 100%;
+  min-width: 100%;
+}
+
+.jumbotron {
+  width: 60%;
+  margin: 10px auto;
+  text-align: center;
+  border-radius: 6px;
+}
