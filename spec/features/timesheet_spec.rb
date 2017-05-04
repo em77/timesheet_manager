@@ -12,19 +12,18 @@ feature "employee clock in/out" do
   end
 
   scenario "employee can clock in/out", js: true do
-    travel_to Time.new(2017, 4, 24, 16, 50, 0) do
-      find_button("Clock In").click
-      fill_in "timesheet_clock_in", with: "\n" # Press enter
-      find_button("submit_timesheet").click
-      expect(page).to have_content "Successfully clocked in"
+    find_button("Clock In").click
+    fill_in "timesheet_clock_in", with: "\n" # Press enter
+    find_button("submit_timesheet").click
+    expect(page).to have_content "Successfully clocked in"
 
-      clock_out_matches = page.all(".clock_out_button")
-      clock_out_matches[0].click
-      fill_in "timesheet_clock_out", with: "\n" # Press enter
-      find_button("submit_timesheet").click
-      expect(page).to have_content "Timesheet updated successfully"
-      expect(page).to have_content "Monday, May 15, 2017"
-    end
+    clock_out_matches = page.all(".clock_out_button")
+    clock_out_matches[0].click
+    fill_in "timesheet_clock_out", with: "\n" # Press enter
+    find_button("submit_timesheet").click
+    expect(page).to have_content "Timesheet updated successfully"
+    pay_date = Timesheet.last.pay_period.pay_date.strftime("%A, %b %d, %Y")
+    expect(page).to have_content pay_date
   end
 end
 
