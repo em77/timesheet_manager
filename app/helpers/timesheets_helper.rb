@@ -12,8 +12,7 @@ module TimesheetsHelper
   end
 
   def timesheets_total_hours(timesheets)
-    sum = 0
-    timesheets.each { |t| sum += hours_calc(t.clock_in, t.clock_out) }
-    sum.round(2)
+    timesheets.reduce(0) { |sum, t| sum += hours_calc(t.clock_in, t.clock_out) }
+      .round(2)
   end
 end
