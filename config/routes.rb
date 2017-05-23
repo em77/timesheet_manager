@@ -37,8 +37,5 @@ Rails.application.routes.draw do
   get "/change_company_active_status" => "companies#change_active_status",
     as: "change_company_active_status"
 
-  # post "add_user_to_company" => "users#add_user_to_company",
-  #   as: "add_user_to_company"
-
   root to: "pages#home"
 end

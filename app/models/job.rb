@@ -1,6 +1,6 @@
 class Job < ApplicationRecord
-  belongs_to :employee_profile
-  belongs_to :company
+  belongs_to :employee_profile, optional: true
+  belongs_to :company, optional: true
   has_many :pay_periods
   enum pay_freq: [:biweekly, :monthly]
   enum active_status: [:active, :inactive]

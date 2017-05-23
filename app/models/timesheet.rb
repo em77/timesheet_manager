@@ -1,5 +1,5 @@
 class Timesheet < ApplicationRecord
-  belongs_to :pay_period
+  belongs_to :pay_period, optional: true
   enum approved_status: [:unapproved, :approved]
   after_initialize :set_default_approved_status, if: :new_record?
 
