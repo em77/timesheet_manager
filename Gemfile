@@ -57,6 +57,9 @@ gem 'will_paginate', '~> 3.1.0'
 # For next/previous record
 gem 'order_query'
 
+# Backup database to S3 bucket
+gem 'pgbackups-archive'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
