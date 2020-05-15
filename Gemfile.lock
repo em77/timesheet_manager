@@ -301,7 +301,7 @@ DEPENDENCIES
   money-rails
   order_query
   pg (~> 0.18)
-  puma (~> 3.0)
+  puma (~> 3.12)
   pundit
   rack-timeout
   rails (= 5.2.4.2)
