@@ -1,6 +1,6 @@
 $(document).on "turbolinks:load", ->
   $(".datetimepicker").datetimepicker(
-    stepping: 1, format: "YYYY-MM-DD hh:mm A")
+    stepping: 1, format: "YYYY-MM-DD hh:mm A", defaultDate: moment().tz('America/New_York'))
   $("#edit-notes-toggler").click ->
     if $("#pay-period-notes-form-wrapper").is ":hidden"
       # Toggle #pay-period-notes-form-wrapper slide down

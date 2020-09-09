@@ -19,6 +19,9 @@ gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '3.4.1'
 gem 'bootstrap_form'
 gem 'momentjs-rails', '>= 2.9.0'
+gem 'moment_timezone-rails',
+  git: 'https://github.com/viclim/moment_timezone-rails.git',
+  ref: '35d001ea018ffca8b64fc62347734b716ce93d37'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.43'
 gem 'holidays'
 # Use Uglifier as compressor for JavaScript assets
