@@ -161,7 +161,8 @@ GEM
       activesupport (>= 5.0, < 7.0)
     pg (0.21.0)
     public_suffix (4.0.6)
-    puma (3.12.6)
+    puma (4.3.9)
+      nio4r (~> 2.0)
     pundit (2.1.0)
       activesupport (>= 3.0.0)
     rack (2.2.3)
@@ -310,7 +311,7 @@ DEPENDENCIES
   money-rails
   order_query
   pg (~> 0.18)
-  puma (= 3.12.6)
+  puma (= 4.3.9)
   pundit
   rack-timeout
   rails (~> 5.2.4)
